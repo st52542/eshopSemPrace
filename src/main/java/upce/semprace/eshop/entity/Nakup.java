@@ -1,4 +1,4 @@
-package upce.semprace.eshop.Entity;
+package upce.semprace.eshop.entity;
 
 import javax.persistence.*;
 import java.util.Date;

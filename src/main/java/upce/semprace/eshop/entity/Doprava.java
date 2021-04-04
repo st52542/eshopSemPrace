@@ -1,17 +1,17 @@
-package upce.semprace.eshop.Entity;
+package upce.semprace.eshop.entity;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Platba {
+public class Doprava {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 45)
     private String popis;
     @Column(nullable = false)
-    private Double prevod;
+    private Integer cena;
 
     @OneToMany(mappedBy = "id")
     private Set<Nakup> nakup;
@@ -33,12 +33,12 @@ public class Platba {
         this.popis = popis;
     }
 
-    public Double getPrevod() {
-        return prevod;
+    public Integer getCena() {
+        return cena;
     }
 
-    public void setPrevod(Double prevod) {
-        this.prevod = prevod;
+    public void setCena(Integer cena) {
+        this.cena = cena;
     }
 
     public Set<Nakup> getNakup() {
