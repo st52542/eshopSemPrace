@@ -1,29 +1,15 @@
-package upce.semprace.eshop.entity;
+package upce.semprace.eshop.dto;
 
-import javax.persistence.*;
-import java.util.Set;
+import javax.persistence.Column;
 
-@Entity
-public class Produkt {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PridejZmenProduktDto {
     private Long id;
-    @Column(nullable = false)
     private String nazev;
-    @Column(nullable = false)
     private String popis;
-    @Column(nullable = false)
     private int cena;
-    @Column(nullable = false)
     private int slevaProcenta;
-    @Column(nullable = false)
     private boolean vNabidce;
-    @Column
     private String cestaKObrazku;
-    @OneToMany(mappedBy = "id")
-    private Set<NakoupenaPolozka> nakoupenaPolozka;
-    @ManyToOne
-    private Vyrobce vyrobce;
 
     public Long getId() {
         return id;
@@ -79,21 +65,5 @@ public class Produkt {
 
     public void setCestaKObrazku(String cestaKObrazku) {
         this.cestaKObrazku = cestaKObrazku;
-    }
-
-    public Set<NakoupenaPolozka> getNakoupenaPolozka() {
-        return nakoupenaPolozka;
-    }
-
-    public void setNakoupenaPolozka(Set<NakoupenaPolozka> nakoupenaPolozka) {
-        this.nakoupenaPolozka = nakoupenaPolozka;
-    }
-
-    public Vyrobce getVyrobce() {
-        return vyrobce;
-    }
-
-    public void setVyrobce(Vyrobce vyrobce) {
-        this.vyrobce = vyrobce;
     }
 }

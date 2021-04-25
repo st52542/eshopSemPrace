@@ -20,16 +20,19 @@ public class DopravaController {
     public String ochranaChyb() {
         return "chyba";
     }
+
     @GetMapping("/doprava-detail/{id}")
     public String zobrazDetailyDopravy(@PathVariable(required = false) Long id, Model model) {
         model.addAttribute("doprava", dopravaRepository.findById(id).get());
         return "doprava-detail";
     }
+
     @GetMapping("/doprava")
-    public String zobrazVsechnuDopravu(Model model){
-        model.addAttribute("dopravaList",dopravaRepository.findAll());
+    public String zobrazVsechnuDopravu(Model model) {
+        model.addAttribute("dopravaList", dopravaRepository.findAll());
         return "doprava-list";
     }
+
     @GetMapping(value = {"/doprava-reg-form", "/doprava-reg-form/{id}"})
     public String zobrazDopravu(@PathVariable(required = false) Long id, Model model) {
         if (id != null) {
@@ -44,6 +47,7 @@ public class DopravaController {
         }
         return "doprava-reg-form";
     }
+
     @PostMapping("/uloz-dopravu")
     public String zpracujDopravu(PridejZmenDopravaDto pridejZmenDopravaDto) {
         Doprava doprava = new Doprava();

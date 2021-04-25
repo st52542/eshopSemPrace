@@ -27,6 +27,7 @@ public class PlatbaController {
         model.addAttribute("platba", platbaRepository.findById(id).get());
         return "platba-detail";
     }
+
     @GetMapping("/platba")
     public String zobrazVsechnyPlatby(Model model) {
         model.addAttribute("platbaList", platbaRepository.findAll());
