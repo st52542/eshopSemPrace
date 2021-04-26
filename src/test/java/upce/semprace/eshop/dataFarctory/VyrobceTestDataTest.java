@@ -1,9 +1,11 @@
 package upce.semprace.eshop.dataFarctory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import upce.semprace.eshop.entity.Vyrobce;
 import upce.semprace.eshop.repository.VyrobceRepository;
 
+@Component
 public class VyrobceTestDataTest {
     @Autowired
     private VyrobceRepository vyrobceRepository;
@@ -12,6 +14,7 @@ public class VyrobceTestDataTest {
         Vyrobce vyrobce = new Vyrobce();
         vyrobce.setNazev("vyrobce1");
         vyrobce.setAdresa("tamATam1");
+        vyrobceRepository.save(vyrobce);
         return vyrobce;
     }
 
@@ -19,6 +22,15 @@ public class VyrobceTestDataTest {
         Vyrobce vyrobce = new Vyrobce();
         vyrobce.setNazev("vyrobce2");
         vyrobce.setAdresa("tamATam2");
+        vyrobceRepository.save(vyrobce);
+        return vyrobce;
+    }
+
+    public Vyrobce addVyrobce3() {
+        Vyrobce vyrobce = new Vyrobce();
+        vyrobce.setNazev("vyrobce3");
+        vyrobce.setAdresa("tamATam3");
+        vyrobceRepository.save(vyrobce);
         return vyrobce;
     }
 }
