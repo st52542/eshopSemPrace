@@ -6,7 +6,7 @@ import BackendService from "../services/BackendService";
 
 class AdminManageVyrob extends Component {
 
-    stateAll = {
+    state = {
         vyrobALL: []
     };
 
@@ -38,11 +38,10 @@ class AdminManageVyrob extends Component {
     }
     onAddDop = (event) => {
         console.log(event.target.name)
-        this.props.history.push("/AddVyrobce")
+        this.props.history.push("/vyrobce/AddVyrobce")
     }
 
     render() {
-        const {vyrobALL} = this.state;
         return (
             <div>
                 <AppNavbar/>
@@ -54,7 +53,7 @@ class AdminManageVyrob extends Component {
                         <Alert variant="primary">
                             <h2>Zde je seznam vsech vyrobcu</h2>
                         </Alert>
-                        {vyrobALL && vyrobALL.length > 0 && vyrobALL.map(vyrobce =>
+                        {this.state.vyrobALL && this.state.vyrobALL.length > 0 && this.state.vyrobALL.map(vyrobce =>
                             <div key={vyrobce.id}>
                                 ({vyrobce.nazev})
                                 ({vyrobce.adresa})

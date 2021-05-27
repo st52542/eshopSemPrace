@@ -50,7 +50,7 @@ public class VyrobceController {
     }
 
     @PostMapping("/uloz-vyrobce")
-    public String zpracujVyrobce(PridejZmenVyrobceDto pridejZmenVyrobceDto) {
+    public String zpracujVyrobce(@RequestBody PridejZmenVyrobceDto pridejZmenVyrobceDto) {
         Vyrobce vyrobce = new Vyrobce();
         vyrobce.setId(pridejZmenVyrobceDto.getId());
         vyrobce.setNazev(pridejZmenVyrobceDto.getNazev());

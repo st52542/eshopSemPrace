@@ -19,9 +19,10 @@ class AddProduct extends Component {
         super(props);
     }
 
-    onSubmitHandler = () => {
+    onSubmitHandler = (event) => {
+        event.preventDefault()
         this.state.produkt.vNabidce = true;
-        BackendService.setNewProdukt(this.state.produkt)
+        BackendService.postNewProdukt(this.state.produkt)
             .then((response) => {
                 console.log(response)
             })
@@ -46,8 +47,6 @@ class AddProduct extends Component {
     }
 
     render() {
-
-
         return (
             <div>
                 <AppNavbar/>

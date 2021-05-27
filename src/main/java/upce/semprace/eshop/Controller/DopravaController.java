@@ -51,7 +51,7 @@ public class DopravaController {
     }
 
     @PostMapping("/uloz-dopravu")
-    public String zpracujDopravu(PridejZmenDopravaDto pridejZmenDopravaDto) {
+    public String zpracujDopravu(@RequestBody PridejZmenDopravaDto pridejZmenDopravaDto) {
         Doprava doprava = new Doprava();
         doprava.setId(pridejZmenDopravaDto.getId());
         doprava.setCena(pridejZmenDopravaDto.getCena());

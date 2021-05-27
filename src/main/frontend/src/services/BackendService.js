@@ -33,7 +33,7 @@ class BackendService {
         return await axios.get(SERVER_ADDRESS + "/produkt/all-products");
     }
 
-    async setNewProdukt(produkt) {
+    async postNewProdukt(produkt) {
         return await axios.post(SERVER_ADDRESS + "/produkt/uloz-produkt", produkt);
     }
     async deleteProdukt(id) {
@@ -48,7 +48,8 @@ class BackendService {
     async deleteDoprava(id) {
         return await axios.delete(SERVER_ADDRESS + "/doprava/smaz/" + id);
     }
-    async setNewDoprava(doprava) {
+    async postNewDoprava(doprava) {
+        debugger
         return await axios.post(SERVER_ADDRESS + "/doprava/uloz-dopravu", doprava);
     }
     async getVyrobceList() {
@@ -57,17 +58,17 @@ class BackendService {
     async deleteVyrobce(id) {
         return await axios.delete(SERVER_ADDRESS + "/vyrobce/smaz/" + id);
     }
-    async setNewVyrobce(vyrobce) {
-        return await axios.post(SERVER_ADDRESS + "/vyrobce/uloz-dopravu", vyrobce);
+    async postNewVyrobce(vyrobce) {
+        return await axios.post(SERVER_ADDRESS + "/vyrobce/uloz-vyrobce", vyrobce);
     }
     async getPlatbaList() {
-        return await axios.get(SERVER_ADDRESS + "/vyrobce");
+        return await axios.get(SERVER_ADDRESS + "/platba");
     }
     async deletePlatba(id) {
-        return await axios.delete(SERVER_ADDRESS + "/vyrobce/smaz/" + id);
+        return await axios.delete(SERVER_ADDRESS + "/platba/smaz/" + id);
     }
-    async setNewPlatba(platba) {
-        return await axios.post(SERVER_ADDRESS + "/vyrobce/uloz-dopravu", platba);
+    async postNewPlatba(platba) {
+        return await axios.post(SERVER_ADDRESS + "/platba/uloz-platbu", platba);
     }
 }
 

@@ -7,8 +7,8 @@ import {Container} from "react-bootstrap";
 class AddVyrobce extends Component {
     state = {
         vyrobce: {
-            nazev: undefined,
-            adresa: undefined
+            adresa: undefined,
+            nazev: undefined
         }
     };
 
@@ -16,21 +16,23 @@ class AddVyrobce extends Component {
         super(props);
     }
 
-    onSubmitHandler = () => {
-        BackendService.setNewVyrobce(this.state.vyrobce)
+    onSubmitHandler = (event) => {
+        event.preventDefault()
+
+        BackendService.postNewVyrobce(this.state.vyrobce)
             .then((response) => {
                 console.log(response)
-            })
+            },(error) => {console.log(error.toString())})
     }
 
     onchangeHandler = (event) => {
         console.log(event.target.name)
         switch (event.target.name) {
-            case "nazev":
-                this.state.vyrobce.popis = event.target.value
-                break;
             case "adresa":
-                this.state.vyrobce.cena = event.target.value
+                this.state.vyrobce.adresa = event.target.value
+                break;
+            case "nazev":
+                this.state.vyrobce.nazev = event.target.value
                 break;
         }
     }
@@ -46,10 +48,10 @@ class AddVyrobce extends Component {
                 }
                 }>
                     <Form onSubmit={this.onSubmitHandler}>
-                        <Input placeholder="popis" name='popis' onChange={(event) => {
+                        <Input placeholder="adresa" name='adresa' onChange={(event) => {
                             this.onchangeHandler(event)
                         }}/>
-                        <Input placeholder="cena" name='cena' onChange={(event) => {
+                        <Input placeholder="nazev" name='nazev' onChange={(event) => {
                             this.onchangeHandler(event)
                         }}/>
                         <Button type="submit">Přidat</Button>

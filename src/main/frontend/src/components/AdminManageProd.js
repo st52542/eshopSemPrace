@@ -6,7 +6,7 @@ import BackendService from "../services/BackendService";
 
 class AdminManageProd extends Component {
 
-    stateAll = {
+    state = {
         produktyALL: []
     };
 
@@ -38,11 +38,10 @@ class AdminManageProd extends Component {
     }
     onAddProd = (event) => {
         console.log(event.target.name)
-        this.props.history.push("/AddProduct")
+        this.props.history.push("/produkt/AddProduct")
     }
 
     render() {
-        const {produktyALL} = this.state;
         return (
             <div>
                 <AppNavbar/>
@@ -54,7 +53,7 @@ class AdminManageProd extends Component {
                         <Alert variant="primary">
                             <h2>Zde je seznam vsech produktu</h2>
                         </Alert>
-                        {produktyALL && produktyALL.length > 0 && produktyALL.map(produkt =>
+                        {this.state.produktyALL && this.state.produktyALL.length > 0 && this.state.produktyALL.map(produkt =>
                             <div key={produkt.id}>
                                 {produkt.nazev} ({produkt.popis})
                                 ({produkt.cena}) {produkt.vyrobce && (produkt.vyrobce.nazev)}

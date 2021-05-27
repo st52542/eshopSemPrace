@@ -6,7 +6,7 @@ import BackendService from "../services/BackendService";
 
 class AdminManagePlat extends Component {
 
-    stateAll = {
+    state = {
         platbaALL: []
     };
 
@@ -38,11 +38,10 @@ class AdminManagePlat extends Component {
     }
     onAddDop = (event) => {
         console.log(event.target.name)
-        this.props.history.push("/AddPlatba")
+        this.props.history.push("/platba/AddPlatba")
     }
 
     render() {
-        const {platbaALL} = this.state;
         return (
             <div>
                 <AppNavbar/>
@@ -54,7 +53,7 @@ class AdminManagePlat extends Component {
                         <Alert variant="primary">
                             <h2>Zde je seznam vsech plateb</h2>
                         </Alert>
-                        {platbaALL && platbaALL.length > 0 && platbaALL.map(platba =>
+                        {this.state.platbaALL && this.state.platbaALL.length > 0 && this.state.platbaALL.map(platba =>
                             <div key={platba.id}>
                                 ({platba.popis})
                                 ({platba.prevod})

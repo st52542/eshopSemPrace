@@ -79,25 +79,25 @@ class AppNavbar extends Component {
                     ) : (
                         <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink href="/signin">Login</NavLink>
+                                <NavLink href="/#/signin">Login</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/produkty/products">Produkty</NavLink>
+                                <NavLink href="/#/produkt/products">Produkty</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/signup">SignUp</NavLink>
+                                <NavLink href="/#/signup">SignUp</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/produkty/AdminManageProd">Admin produkty</NavLink>
+                                <NavLink href="/#/produkt/AdminManageProd">Admin produkty</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/doprava/AdminManageDop">Admin doprava</NavLink>
+                                <NavLink href="/#/doprava/AdminManageDop">Admin doprava</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/vyrrobce/AdminManageVyrob">Admin vyrobcu</NavLink>
+                                <NavLink href="/#/vyrobce/AdminManageVyrob">Admin vyrobcu</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/platba/AdminManagePlat">Admin plateb</NavLink>
+                                <NavLink href="/#/platba/AdminManagePlat">Admin plateb</NavLink>
                             </NavItem>
                         </Nav>
                     )

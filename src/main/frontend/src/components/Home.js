@@ -45,10 +45,10 @@ class Home extends Component {
                         <Alert variant="primary">
                             <h2>Vitame vas v nasem eshopu</h2>
                         </Alert>
-                        <h2>Zde jsou vybrane produkty</h2>
+                        <h2>Zde jsou vybrane produkty s nejvetsu slevou</h2>
                             {produkty && produkty.length > 0 && produkty.map(produkt =>
                                 <div key={produkt.id}>
-                                    {produkt.nazev} ({produkt.popis}) ({produkt.cena})
+                                    {produkt.nazev} ({produkt.popis}) ({produkt.cena}) ({produkt.slevaProcenta})
                                     <Button type="submit" onClick={(event) => {
                                         this.onAddToCart(event, produkt.id)
                                     }}>Pridej do kosiku</Button>

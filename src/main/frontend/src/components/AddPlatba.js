@@ -8,7 +8,7 @@ class AddPlatba extends Component {
     state = {
         platba: {
             popis: undefined,
-            cena: 0
+            prevod: 0
         }
     };
 
@@ -16,8 +16,11 @@ class AddPlatba extends Component {
         super(props);
     }
 
-    onSubmitHandler = () => {
-        BackendService.setNewPlatba(this.state.platba)
+    onSubmitHandler = (event) => {
+        debugger
+        console.log(this.state)
+        event.preventDefault()
+        BackendService.postNewPlatba(this.state.platba)
             .then((response) => {
                 console.log(response)
             })
@@ -30,14 +33,12 @@ class AddPlatba extends Component {
                 this.state.platba.popis = event.target.value
                 break;
             case "prevod":
-                this.state.platba.cena = event.target.value
+                this.state.platba.prevod = event.target.value
                 break;
         }
     }
 
     render() {
-
-
         return (
             <div>
                 <AppNavbar/>

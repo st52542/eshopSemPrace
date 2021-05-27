@@ -16,8 +16,9 @@ class AddDoprava extends Component {
         super(props);
     }
 
-    onSubmitHandler = () => {
-        BackendService.setNewDoprava(this.state.doprava)
+    onSubmitHandler = (event) => {
+        event.preventDefault()
+        BackendService.postNewDoprava(this.state.doprava)
             .then((response) => {
                 console.log(response)
             })
@@ -36,8 +37,6 @@ class AddDoprava extends Component {
     }
 
     render() {
-
-
         return (
             <div>
                 <AppNavbar/>

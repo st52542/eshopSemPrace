@@ -15,6 +15,8 @@ import AdminManageDop from "./components/AdminManageDop";
 import AddDoprava from "./components/AddDoprava";
 import AdminManageVyrob from "./components/AdminManageVyrob";
 import AdminManagePlat from "./components/AdminManagePlat";
+import AddVyrobce from "./components/AddVyrobce";
+import AddPlatba from "./components/AddPlatba";
 
 class App extends Component {
   render() {
@@ -29,12 +31,14 @@ class App extends Component {
             <Route path='/admin' exact={true} component={AdminPage}/>
             <Route path='/signin' exact={true} component={Login}/>
             <Route path='/signup' exact={true} component={SignUp}/>
-            <Route path='/produkt/add' exact={true} component={AddProduct}/>
-            <Route path='/doprava/add' exact={true} component={AddDoprava}/>
+            <Route path='/produkt/AddProduct' exact={true} component={AddProduct}/>
+            <Route path='/doprava/AddDoprava' exact={true} component={AddDoprava}/>
+            <Route path='/platba/AddPlatba' exact={true} component={AddPlatba}/>
             <Route path='/produkt/products' exact={true} component={Products}/>
             <Route path='/produkt/AdminManageProd' exact={true} component={AdminManageProd}/>
             <Route path='/doprava/AdminManageDop' exact={true} component={AdminManageDop}/>
-            <Route path='/vyrob/AdminManageVyrob' exact={true} component={AdminManageVyrob}/>
+            <Route path='/vyrobce/AdminManageVyrob' exact={true} component={AdminManageVyrob}/>
+            <Route path='/vyrobce/AddVyrobce' exact={true} component={AddVyrobce}/>
             <Route path='/platba/AdminManagePlat' exact={true} component={AdminManagePlat}/>
           </Switch>
         </HashRouter>

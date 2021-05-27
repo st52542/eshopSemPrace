@@ -52,7 +52,7 @@ public class PlatbaController {
     }
 
     @PostMapping("/uloz-platbu")
-    public String zpracujPlatbu(PridejZmenPlatbaDto pridejZmenPlatbaDto) {
+    public String zpracujPlatbu(@RequestBody PridejZmenPlatbaDto pridejZmenPlatbaDto) {
         Platba platba = new Platba();
         platba.setId(pridejZmenPlatbaDto.getId());
         platba.setPopis(pridejZmenPlatbaDto.getPopis());
