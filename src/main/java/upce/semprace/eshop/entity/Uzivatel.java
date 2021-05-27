@@ -1,10 +1,12 @@
 package upce.semprace.eshop.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class Uzivatel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,8 +20,32 @@ public class Uzivatel {
     private String heslo;
     @Column(length = 100,nullable = false)
     private String adresa;
-    @Column(nullable = false)
-    private Boolean admin;
+
+    public Uzivatel(String jmeno, String prijmeni, String username, String email, String heslo) {
+        this.jmeno = jmeno;
+        this.prijmeni = prijmeni;
+        this.email = email;
+        this.heslo = heslo;
+        this.username = username;
+    }
+
+    public Uzivatel() {
+
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Column(length = 100)
+    private String username;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "id")
     private Set<Nakup> nakup;
@@ -74,19 +100,20 @@ public class Uzivatel {
         this.adresa = adresa;
     }
 
-    public Boolean getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(Boolean admin) {
-        this.admin = admin;
-    }
-
     public Set<Nakup> getNakup() {
         return nakup;
     }
 
     public void setNakup(Set<Nakup> nakup) {
         this.nakup = nakup;
+    }
+
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

@@ -2,14 +2,17 @@ package upce.semprace.eshop.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import upce.semprace.eshop.dto.PridejZmenVyrobceDto;
+import upce.semprace.eshop.entity.Doprava;
 import upce.semprace.eshop.entity.Vyrobce;
 import upce.semprace.eshop.repository.VyrobceRepository;
 
+import java.util.List;
+
+@RestController
+@RequestMapping("/vyrobce")
+@CrossOrigin("http://localhost:3000")
 public class VyrobceController {
     @Autowired
     VyrobceRepository vyrobceRepository;
@@ -54,5 +57,15 @@ public class VyrobceController {
         vyrobce.setAdresa(pridejZmenVyrobceDto.getAdresa());
         vyrobceRepository.save(vyrobce);
         return "redirect:/vyrobce";
+    }
+    @DeleteMapping("/smaz/{id}")
+    public String smazDopravu(@PathVariable(required = false) Long id, Model model){
+        vyrobceRepository.deleteById(id);
+        return "/";
+    }
+
+    @GetMapping(value = {"","/"})
+    public List<Vyrobce> getProducts() {
+        return vyrobceRepository.findAll();
     }
 }

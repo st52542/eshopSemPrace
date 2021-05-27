@@ -26,7 +26,7 @@ public class NakoupenaPolozka {
         return id;
     }
 
-    public Integer getMnozstvi() {
+    public Integer getMnozstvi(Integer value) {
         return mnozstvi;
     }
 

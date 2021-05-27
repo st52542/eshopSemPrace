@@ -2,7 +2,9 @@ package upce.semprace.eshop.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import upce.semprace.eshop.entity.Doprava;
+import upce.semprace.eshop.entity.Produkt;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface DopravaRepository extends JpaRepository<Doprava,Long> {
@@ -14,4 +16,6 @@ public interface DopravaRepository extends JpaRepository<Doprava,Long> {
     Doprava findByCena(Integer cena);
 
     void removeDopravaById(Long id);
+
+    List<Doprava> findAll();
 }

@@ -45,7 +45,6 @@ public class UzivatelController {
             dto.setHeslo(byId.getHeslo());
             dto.setEmail(byId.getEmail());
             dto.setAdresa(byId.getAdresa());
-            dto.setAdmin(byId.getAdmin());
             model.addAttribute("uzivatel", byId);
         } else {
             model.addAttribute("uzivatel", new PridejZmenUzivatelDto());
@@ -62,7 +61,6 @@ public class UzivatelController {
         uziv.setHeslo(pridejZmenUzivatelDto.getHeslo());
         uziv.setAdresa(pridejZmenUzivatelDto.getAdresa());
         uziv.setEmail(pridejZmenUzivatelDto.getEmail());
-        uziv.setAdmin(pridejZmenUzivatelDto.getAdmin());
         uzivatelRepository.save(uziv);
         return "redirect:/uzivatel";
     }

@@ -1,15 +1,19 @@
 package upce.semprace.eshop.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import upce.semprace.eshop.dto.PridejZmenProduktDto;
 import upce.semprace.eshop.entity.Produkt;
 import upce.semprace.eshop.repository.ProduktRepository;
 
+import java.util.List;
+
+@RestController
+@RequestMapping("/produkt")
+@CrossOrigin("http://localhost:3000")
 public class ProduktController {
     @Autowired
     ProduktRepository produktRepository;
@@ -51,7 +55,7 @@ public class ProduktController {
     }
 
     @PostMapping("/uloz-produkt")
-    public String zpracujProdukt(PridejZmenProduktDto pridejZmenProduktDto) {
+    public String zpracujProdukt(@RequestBody PridejZmenProduktDto pridejZmenProduktDto) {
         Produkt produkt = new Produkt();
         produkt.setId(pridejZmenProduktDto.getId());
         produkt.setNazev(pridejZmenProduktDto.getNazev());
@@ -62,5 +66,21 @@ public class ProduktController {
         produkt.setCestaKObrazku(pridejZmenProduktDto.getCestaKObrazku());
         produktRepository.save(produkt);
         return "redirect:/produkt";
+    }
+
+    @DeleteMapping("/smaz/{id}")
+    public String smazProdukt(@PathVariable(required = false) Long id, Model model){
+        produktRepository.deleteById(id);
+        return "/";
+    }
+
+    @GetMapping(value = {"/all-products"})
+    public List<Produkt> getProducts() {
+        return produktRepository.findAll();
+    }
+
+    @GetMapping(value = { "", "/" })
+    public List<Produkt> getTopProducts() {
+        return produktRepository.findTop();
     }
 }

@@ -18,7 +18,6 @@ public class UzivatelTestDataFactory {
         user.setEmail("aa@bbb.cz");
         user.setHeslo("pass");
         user.setAdresa("konecna 123");
-        user.setAdmin(true);
         uzivatelRepository.save(user);
         return user;
     }
@@ -30,7 +29,6 @@ public class UzivatelTestDataFactory {
         userS.setEmail("vv@bbb.cz");
         userS.setHeslo("pass");
         userS.setAdresa("konecna 123");
-        userS.setAdmin(true);
         uzivatelRepository.save(userS);
         return userS;
     }
