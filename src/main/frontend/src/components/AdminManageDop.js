@@ -1,47 +1,36 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import AppNavbar from './AppNavbar';
 import {Alert, Button, Container} from "react-bootstrap";
 import '../App.css';
 import BackendService from "../services/BackendService";
+import {useHistory} from "react-router-dom";
 
-class AdminManageProd extends Component {
 
-    state = {
-        dopravaALL: []
-    };
+const AdminManageDop =()=> {
+    const [item, setItems] = useState([]);
+    const history = useHistory()
 
-    constructor(props) {
-        super(props);
-    }
-
-    nacteniVse = () => {
+    useEffect(() => {
         BackendService.getDopravaList()
-            .then((response) => {
-                    console.log(response)
-                    this.setState({dopravaALL: response.data})
-                },
-                (error) => {
-                    console.log(error.toString())
-                })
-    }
-
-    async componentDidMount() {
-        this.nacteniVse()
-    }
-
-    onDeleteDop = (event, id) => {
-        console.log(event.target.name)
-        BackendService.deleteDoprava(id)
-            .then((response) => {
-                this.nacteniVse()
+            .then((resp) => {
+                console.log(resp)
+                setItems(resp.data)
+            }, (error) => {
+                console.log(error.toString())
             })
-    }
-    onAddDop = (event) => {
-        console.log(event.target.name)
-        this.props.history.push("/doprava/AddDoprava")
+    }, []);
+
+    const onDeleteItem = (itemToDelete) => {
+        BackendService.deleteDoprava(itemToDelete.id).then((resp) => {
+            const filtered = item.filter(item => item.id !== itemToDelete.id)
+            setItems(filtered)
+        })
     }
 
-    render() {
+    const onAddItem = () => {
+        history.push("/doprava/AddDoprava")
+    }
+
         return (
             <div>
                 <AppNavbar/>
@@ -53,24 +42,23 @@ class AdminManageProd extends Component {
                         <Alert variant="primary">
                             <h2>Zde je seznam vsech doprav</h2>
                         </Alert>
-                        {this.state.dopravaALL && this.state.dopravaALL.length > 0 && this.state.dopravaALL.map(dopravy =>
+                        {item && item.length > 0 && item.map(dopravy =>
                             <div key={dopravy.id}>
                                 ({dopravy.popis})
                                 ({dopravy.cena})
                                 <Button type="submit" onClick={(event) => {
-                                    this.onDeleteDop(event, dopravy.id)
+                                    onDeleteItem(dopravy)
                                 }}>smaz dopravy</Button>
                             </div>
                         )}
                         <Button type="submit" onClick={(event) => {
-                            this.onAddDop(event)
+                            onAddItem()
                         }}>pridej novy dopravy</Button>
                     </div>
                 </Container>
             </div>
         )
             ;
-    }
 }
 
-export default AdminManageProd;
+export default AdminManageDop;

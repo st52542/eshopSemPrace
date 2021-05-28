@@ -1,65 +1,50 @@
-import React, {Component} from "react";
+import React, {Component, useState} from "react";
 import AppNavbar from './AppNavbar';
 import {Button, Form, Input} from "reactstrap";
 import BackendService from "../services/BackendService";
 import {Container} from "react-bootstrap";
+import {useHistory} from "react-router-dom";
 
-class AddVyrobce extends Component {
-    state = {
-        vyrobce: {
-            adresa: undefined,
-            nazev: undefined
-        }
-    };
+const AddVyrobce = () => {
+    const [newItem, setNewItem] = useState({
+        adresa: undefined,
+        nazev: undefined
+    });
 
-    constructor(props) {
-        super(props);
-    }
+    const history = useHistory()
 
-    onSubmitHandler = (event) => {
+    const onNewItem = (event) => {
         event.preventDefault()
-
-        BackendService.postNewVyrobce(this.state.vyrobce)
-            .then((response) => {
-                console.log(response)
-            },(error) => {console.log(error.toString())})
+        BackendService.postNewVyrobce(newItem).then((resp) => {
+            history.push("/vyrobce/AdminManageVyrob")
+        })
     }
 
-    onchangeHandler = (event) => {
-        console.log(event.target.name)
-        switch (event.target.name) {
-            case "adresa":
-                this.state.vyrobce.adresa = event.target.value
-                break;
-            case "nazev":
-                this.state.vyrobce.nazev = event.target.value
-                break;
-        }
+    const changeValue = (event) => {
+        setNewItem({...newItem, [event.target.name]: event.target.value})
     }
 
-    render() {
-
-
-        return (
-            <div>
-                <AppNavbar/>
-                <div style={{
-                    marginTop: "20px"
-                }
-                }>
-                    <Form onSubmit={this.onSubmitHandler}>
-                        <Input placeholder="adresa" name='adresa' onChange={(event) => {
-                            this.onchangeHandler(event)
-                        }}/>
-                        <Input placeholder="nazev" name='nazev' onChange={(event) => {
-                            this.onchangeHandler(event)
-                        }}/>
-                        <Button type="submit">Přidat</Button>
-                    </Form>
-                </div>
+    return (
+        <div>
+            <AppNavbar/>
+            <div style={{
+                marginTop: "20px"
+            }
+            }>
+                <Form onSubmit={(event) => {
+                    onNewItem(event)
+                }}>
+                    <Input placeholder="adresa" name='adresa' onChange={(event) => {
+                        changeValue(event)
+                    }}/>
+                    <Input placeholder="nazev" name='nazev' onChange={(event) => {
+                        changeValue(event)
+                    }}/>
+                    <Button type="submit">Přidat</Button>
+                </Form>
             </div>
-        )
-    }
+        </div>
+    )
 }
 
 export default AddVyrobce

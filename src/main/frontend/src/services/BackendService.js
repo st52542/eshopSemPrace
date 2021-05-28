@@ -70,6 +70,24 @@ class BackendService {
     async postNewPlatba(platba) {
         return await axios.post(SERVER_ADDRESS + "/platba/uloz-platbu", platba);
     }
+    async getProduktASC() {
+        return await axios.get(SERVER_ADDRESS + "/produkt/productASC");
+    }
+    async getProduktDESC() {
+        return await axios.get(SERVER_ADDRESS + "/produkt/productDESC");
+    }
+    async getProductsLow() {
+        return await axios.get(SERVER_ADDRESS + "/produkt/productLow");
+    }
+    async getProductsMiddle() {
+        return await axios.get(SERVER_ADDRESS + "/produkt/productMiddle");
+    }
+    async getProductsHigh() {
+        return await axios.get(SERVER_ADDRESS + "/produkt/productHigh");
+    }
+    async postCartItem(id) {
+        return await axios.post(SERVER_ADDRESS + "/platba/smaz/" + id);
+    }
 }
 
 export default new BackendService();

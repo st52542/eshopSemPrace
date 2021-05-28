@@ -1,47 +1,35 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import AppNavbar from './AppNavbar';
 import {Alert, Button, Container} from "react-bootstrap";
 import '../App.css';
 import BackendService from "../services/BackendService";
+import {useHistory} from "react-router-dom";
 
-class AdminManagePlat extends Component {
+const AdminManagePlat =()=> {
+    const [item, setItems] = useState([]);
+    const history = useHistory()
 
-    state = {
-        platbaALL: []
-    };
-
-    constructor(props) {
-        super(props);
-    }
-
-    nacteniVse = () => {
+    useEffect(() => {
         BackendService.getPlatbaList()
-            .then((response) => {
-                    console.log(response)
-                    this.setState({platbaALL: response.data})
-                },
-                (error) => {
-                    console.log(error.toString())
-                })
-    }
-
-    async componentDidMount() {
-        this.nacteniVse()
-    }
-
-    onDeleteDop = (event, id) => {
-        console.log(event.target.name)
-        BackendService.deletePlatba(id)
-            .then((response) => {
-                this.nacteniVse()
+            .then((resp) => {
+                console.log(resp)
+                setItems(resp.data)
+            }, (error) => {
+                console.log(error.toString())
             })
-    }
-    onAddDop = (event) => {
-        console.log(event.target.name)
-        this.props.history.push("/platba/AddPlatba")
+    }, []);
+
+    const onDeleteItem = (itemToDelete) => {
+        BackendService.deletePlatba(itemToDelete.id).then((resp) => {
+            const filtered = item.filter(item => item.id !== itemToDelete.id)
+            setItems(filtered)
+        })
     }
 
-    render() {
+    const onAddItem = () => {
+        history.push("/platba/AddPlatba")
+    }
+
         return (
             <div>
                 <AppNavbar/>
@@ -53,24 +41,23 @@ class AdminManagePlat extends Component {
                         <Alert variant="primary">
                             <h2>Zde je seznam vsech plateb</h2>
                         </Alert>
-                        {this.state.platbaALL && this.state.platbaALL.length > 0 && this.state.platbaALL.map(platba =>
+                        {item && item.length > 0 && item.map(platba =>
                             <div key={platba.id}>
                                 ({platba.popis})
                                 ({platba.prevod})
                                 <Button type="submit" onClick={(event) => {
-                                    this.onDeleteDop(event, platba.id)
+                                    onDeleteItem(platba)
                                 }}>smaz platba</Button>
                             </div>
                         )}
                         <Button type="submit" onClick={(event) => {
-                            this.onAddDop(event)
+                            onAddItem()
                         }}>pridej novy platba</Button>
                     </div>
                 </Container>
             </div>
         )
             ;
-    }
 }
 
 export default AdminManagePlat;

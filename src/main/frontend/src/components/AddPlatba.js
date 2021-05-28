@@ -1,64 +1,51 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import AppNavbar from './AppNavbar';
 import {Button, Form, Input} from "reactstrap";
 import BackendService from "../services/BackendService";
-import {Container} from "react-bootstrap";
+import {useHistory} from "react-router-dom";
 
-class AddPlatba extends Component {
-    state = {
-        platba: {
-            popis: undefined,
-            prevod: 0
-        }
-    };
+const AddPlatba = () => {
+    const [newItem, setNewItem] = useState({
+        popis: undefined,
+        prevod: 0
+    });
 
-    constructor(props) {
-        super(props);
-    }
+    const history = useHistory()
 
-    onSubmitHandler = (event) => {
-        debugger
-        console.log(this.state)
+    const onNewItem = (event) => {
         event.preventDefault()
-        BackendService.postNewPlatba(this.state.platba)
-            .then((response) => {
-                console.log(response)
-            })
+        BackendService.postNewPlatba(newItem).then((resp) => {
+            history.push("/platba/AdminManagePlat")
+        })
     }
 
-    onchangeHandler = (event) => {
-        console.log(event.target.name)
-        switch (event.target.name) {
-            case "popis":
-                this.state.platba.popis = event.target.value
-                break;
-            case "prevod":
-                this.state.platba.prevod = event.target.value
-                break;
-        }
+    const changeValue = (event) => {
+        setNewItem({...newItem, [event.target.name]: event.target.value})
     }
 
-    render() {
-        return (
-            <div>
-                <AppNavbar/>
-                <div style={{
-                    marginTop: "20px"
-                }
-                }>
-                    <Form onSubmit={this.onSubmitHandler}>
-                        <Input placeholder="popis" name='popis' onChange={(event) => {
-                            this.onchangeHandler(event)
-                        }}/>
-                        <Input placeholder="prevod" name='prevod' onChange={(event) => {
-                            this.onchangeHandler(event)
-                        }}/>
-                        <Button type="submit">Přidat</Button>
-                    </Form>
-                </div>
+
+    return (
+        <div>
+            <AppNavbar/>
+            <div style={{
+                marginTop: "20px"
+            }
+            }>
+                <Form onSubmit={(event) => {
+                    onNewItem(event)
+                }}>
+                    <Input placeholder="popis" name='popis' onChange={(event) => {
+                        changeValue(event)
+                    }}/>
+                    <Input placeholder="prevod" name='prevod' onChange={(event) => {
+                        changeValue(event)
+                    }}/>
+                    <Button type="submit">Přidat</Button>
+                </Form>
             </div>
-        )
-    }
+        </div>
+    )
 }
 
 export default AddPlatba
+

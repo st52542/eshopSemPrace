@@ -1,76 +1,62 @@
-import React, {Component} from 'react';
+import React, {useEffect, useState} from 'react';
+import {useHistory} from "react-router-dom"
 import AppNavbar from './AppNavbar';
 import {Alert, Button, Container} from "react-bootstrap";
 import '../App.css';
 import BackendService from "../services/BackendService";
 
-class AdminManageProd extends Component {
+const AdminManageProd = () => {
+    const [item, setItems] = useState([]);
+    const history = useHistory()
 
-    state = {
-        produktyALL: []
-    };
-
-    constructor(props) {
-        super(props);
-    }
-
-    nacteniVse = () => {
+    useEffect(() => {
         BackendService.getProduktList()
-            .then((response) => {
-                    console.log(response)
-                    this.setState({produktyALL: response.data})
-                },
-                (error) => {
-                    console.log(error.toString())
-                })
-    }
-
-    async componentDidMount() {
-        this.nacteniVse()
-    }
-
-    onDeleteProd = (event, id) => {
-        console.log(event.target.name)
-        BackendService.deleteProdukt(id)
-            .then((response) => {
-                this.nacteniVse()
+            .then((resp) => {
+                console.log(resp)
+                setItems(resp.data)
+            }, (error) => {
+                console.log(error.toString())
             })
-    }
-    onAddProd = (event) => {
-        console.log(event.target.name)
-        this.props.history.push("/produkt/AddProduct")
+    }, []);
+
+    const onDeleteItem = (itemToDelete) => {
+        BackendService.deleteProdukt(itemToDelete.id).then((resp) => {
+            const filtered = item.filter(item => item.id !== itemToDelete.id)
+            setItems(filtered)
+        })
     }
 
-    render() {
-        return (
-            <div>
-                <AppNavbar/>
-                <Container fluid>
-                    <div style={{
-                        marginTop: "20px"
-                    }
-                    }>
-                        <Alert variant="primary">
-                            <h2>Zde je seznam vsech produktu</h2>
-                        </Alert>
-                        {this.state.produktyALL && this.state.produktyALL.length > 0 && this.state.produktyALL.map(produkt =>
-                            <div key={produkt.id}>
-                                {produkt.nazev} ({produkt.popis})
-                                ({produkt.cena}) {produkt.vyrobce && (produkt.vyrobce.nazev)}
-                                <Button type="submit" onClick={(event) => {
-                                    this.onDeleteProd(event, produkt.id)
-                                }}>smaz produkt</Button>
-                            </div>
-                        )}
-                        <Button type="submit" onClick={(event) => {
-                            this.onAddProd(event)
-                        }}>pridej novy produkt</Button>
-                    </div>
-                </Container>
-            </div>
-        )
-            ;
+    const onAddItem = () => {
+        history.push("/produkt/AddProduct")
     }
+
+    return (
+        <div>
+            <AppNavbar/>
+            <Container fluid>
+                <div style={{
+                    marginTop: "20px"
+                }
+                }>
+                    <Alert variant="primary">
+                        <h2>Zde je seznam vsech produktu</h2>
+                    </Alert>
+                    {item && item.length > 0 && item.map(produkt =>
+                        <div key={produkt.id}>
+                            {produkt.nazev} ({produkt.popis})
+                            ({produkt.cena}) {produkt.vyrobce && (produkt.vyrobce.nazev)}
+                            <Button type="submit" onClick={(e) => {
+                                onDeleteItem(produkt)
+                            }}>smaz produkt</Button>
+                        </div>
+                    )}
+                    <Button type="submit" onClick={(event) => {
+                        onAddItem()
+                    }}>pridej novy produkt</Button>
+                </div>
+            </Container>
+        </div>
+    );
 }
 
 export default AdminManageProd;

@@ -69,7 +69,7 @@ public class ProduktController {
     }
 
     @DeleteMapping("/smaz/{id}")
-    public String smazProdukt(@PathVariable(required = false) Long id, Model model){
+    public String smazProdukt(@PathVariable(required = false) Long id, Model model) {
         produktRepository.deleteById(id);
         return "/";
     }
@@ -79,8 +79,33 @@ public class ProduktController {
         return produktRepository.findAll();
     }
 
-    @GetMapping(value = { "", "/" })
+    @GetMapping(value = {"", "/"})
     public List<Produkt> getTopProducts() {
         return produktRepository.findTop();
+    }
+
+    @GetMapping(value = {"/productASC"})
+    public List<Produkt> getProductsASC() {
+        return produktRepository.findACS();
+    }
+
+    @GetMapping(value = {"/productDESC"})
+    public List<Produkt> getProductsDESC() {
+        return produktRepository.findDESC();
+    }
+
+    @GetMapping(value = {"/productLow"})
+    public List<Produkt> getProductsLow() {
+        return produktRepository.findOneToTwenty();
+    }
+
+    @GetMapping(value = {"/productMiddle"})
+    public List<Produkt> getProductsMiddle() {
+        return produktRepository.findTwentyOneToSixty();
+    }
+
+    @GetMapping(value = {"/productHigh"})
+    public List<Produkt> getProductsHigh() {
+        return produktRepository.findSixtyOneToMax();
     }
 }

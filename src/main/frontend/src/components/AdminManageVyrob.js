@@ -1,47 +1,36 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import AppNavbar from './AppNavbar';
 import {Alert, Button, Container} from "react-bootstrap";
 import '../App.css';
 import BackendService from "../services/BackendService";
+import {useHistory} from "react-router-dom";
 
-class AdminManageVyrob extends Component {
+const AdminManageVyrob =()=> {
 
-    state = {
-        vyrobALL: []
-    };
+    const [item, setItems] = useState([]);
+    const history = useHistory()
 
-    constructor(props) {
-        super(props);
-    }
-
-    nacteniVse = () => {
+    useEffect(() => {
         BackendService.getVyrobceList()
-            .then((response) => {
-                    console.log(response)
-                    this.setState({vyrobALL: response.data})
-                },
-                (error) => {
-                    console.log(error.toString())
-                })
-    }
-
-    async componentDidMount() {
-        this.nacteniVse()
-    }
-
-    onDeleteDop = (event, id) => {
-        console.log(event.target.name)
-        BackendService.deleteVyrobce(id)
-            .then((response) => {
-                this.nacteniVse()
+            .then((resp) => {
+                console.log(resp)
+                setItems(resp.data)
+            }, (error) => {
+                console.log(error.toString())
             })
-    }
-    onAddDop = (event) => {
-        console.log(event.target.name)
-        this.props.history.push("/vyrobce/AddVyrobce")
+    }, []);
+
+    const onDeleteItem = (itemToDelete) => {
+        BackendService.deleteVyrobce(itemToDelete.id).then((resp) => {
+            const filtered = item.filter(item => item.id !== itemToDelete.id)
+            setItems(filtered)
+        })
     }
 
-    render() {
+    const onAddItem = () => {
+        history.push("/vyrobce/AddVyrobce")
+    }
+
         return (
             <div>
                 <AppNavbar/>
@@ -53,24 +42,23 @@ class AdminManageVyrob extends Component {
                         <Alert variant="primary">
                             <h2>Zde je seznam vsech vyrobcu</h2>
                         </Alert>
-                        {this.state.vyrobALL && this.state.vyrobALL.length > 0 && this.state.vyrobALL.map(vyrobce =>
+                        {item && item.length > 0 && item.map(vyrobce =>
                             <div key={vyrobce.id}>
                                 ({vyrobce.nazev})
                                 ({vyrobce.adresa})
                                 <Button type="submit" onClick={(event) => {
-                                    this.onDeleteDop(event, vyrobce.id)
+                                    onDeleteItem(vyrobce)
                                 }}>smaz vyrobce</Button>
                             </div>
                         )}
                         <Button type="submit" onClick={(event) => {
-                            this.onAddDop(event)
+                            onAddItem()
                         }}>pridej novy vyrobce</Button>
                     </div>
                 </Container>
             </div>
         )
             ;
-    }
 }
 
 export default AdminManageVyrob;

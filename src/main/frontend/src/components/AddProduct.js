@@ -1,78 +1,59 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import AppNavbar from './AppNavbar';
 import {Button, Form, Input} from "reactstrap";
 import BackendService from "../services/BackendService";
-import {Container} from "react-bootstrap";
+import {useHistory} from "react-router-dom";
 
-class AddProduct extends Component {
-    state = {
-        produkt: {
+const AddProduct = () => {
+
+    const [newItem, setNewItem] = useState({
             nazev: undefined,
             popis: undefined,
             cena: 0,
             slevaProcenta: 0,
             vNabidce: false
-        }
-    };
+    });
+    const history = useHistory()
 
-    constructor(props) {
-        super(props);
-    }
-
-    onSubmitHandler = (event) => {
+    const onNewItem = (event) => {
         event.preventDefault()
-        this.state.produkt.vNabidce = true;
-        BackendService.postNewProdukt(this.state.produkt)
-            .then((response) => {
-                console.log(response)
-            })
+        newItem.vNabidce = true
+        BackendService.postNewProdukt(newItem).then((resp) => {
+            history.push("/produkt/AdminManageProd")
+        })
     }
 
-    onchangeHandler = (event) => {
-        console.log(event.target.name)
-        switch (event.target.name) {
-            case "nazev":
-                this.state.produkt.nazev = event.target.value
-                break;
-            case "popis":
-                this.state.produkt.popis = event.target.value
-                break;
-            case "cena":
-                this.state.produkt.cena = event.target.value
-                break;
-            case "slevaProcenta":
-                this.state.produkt.slevaProcenta = event.target.value
-                break;
-        }
+    const changeValue = (event) => {
+        setNewItem({...newItem, [event.target.name] : event.target.value})
     }
 
-    render() {
-        return (
-            <div>
-                <AppNavbar/>
-                <div style={{
-                    marginTop: "20px"
-                }
-                }>
-                    <Form onSubmit={this.onSubmitHandler}>
-                        <Input placeholder="nazev" name='nazev' onChange={(event) => {
-                            this.onchangeHandler(event)
-                        }}/>
-                        <Input placeholder="popis" name='popis' onChange={(event) => {
-                            this.onchangeHandler(event)
-                        }}/>
-                        <Input placeholder="cena" name='cena' onChange={(event) => {
-                            this.onchangeHandler(event)
-                        }}/>
-                        <Input placeholder="slevaProcenta" name='slevaProcenta' onChange={(event) => {
-                            this.onchangeHandler(event)
-                        }}/>
-                        <Button type="submit">Přidat</Button>
-                    </Form>
-                </div>
+    return (
+        <div>
+            <AppNavbar/>
+            <div style={{
+                marginTop: "20px"
+            }
+            }>
+                <Form onSubmit={(event) => {
+                    onNewItem(event)
+                }}>
+                    <Input placeholder="nazev" name='nazev' onChange={(event) => {
+                        changeValue(event)
+                    }}/>
+                    <Input placeholder="popis" name='popis' onChange={(event) => {
+                        changeValue(event)
+                    }}/>
+                    <Input placeholder="cena" name='cena' onChange={(event) => {
+                        changeValue(event)
+                    }}/>
+                    <Input placeholder="slevaProcenta" name='slevaProcenta' onChange={(event) => {
+                        changeValue(event)
+                    }}/>
+                    <Button type="submit">Přidat</Button>
+                </Form>
             </div>
-        )
-    }
+        </div>
+    );
 }
 
 export default AddProduct

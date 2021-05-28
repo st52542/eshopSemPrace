@@ -1,62 +1,49 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import AppNavbar from './AppNavbar';
 import {Button, Form, Input} from "reactstrap";
 import BackendService from "../services/BackendService";
-import {Container} from "react-bootstrap";
+import {useHistory} from "react-router-dom";
 
-class AddDoprava extends Component {
-    state = {
-        doprava: {
-            popis: undefined,
-            cena: 0
-        }
-    };
+const AddDoprava = () => {
+    const [newItem, setNewItem] = useState({
+        cena: 0,
+        popis: undefined
+    });
 
-    constructor(props) {
-        super(props);
-    }
+    const history = useHistory()
 
-    onSubmitHandler = (event) => {
+    const onNewItem = (event) => {
         event.preventDefault()
-        BackendService.postNewDoprava(this.state.doprava)
-            .then((response) => {
-                console.log(response)
-            })
+        BackendService.postNewDoprava(newItem).then((resp) => {
+            history.push("/doprava/AdminManageDop")
+        })
     }
 
-    onchangeHandler = (event) => {
-        console.log(event.target.name)
-        switch (event.target.name) {
-            case "popis":
-                this.state.doprava.popis = event.target.value
-                break;
-            case "cena":
-                this.state.doprava.cena = event.target.value
-                break;
-        }
+    const changeValue = (event) => {
+        setNewItem({...newItem, [event.target.name]: event.target.value})
     }
 
-    render() {
-        return (
-            <div>
-                <AppNavbar/>
-                <div style={{
-                    marginTop: "20px"
-                }
-                }>
-                    <Form onSubmit={this.onSubmitHandler}>
-                        <Input placeholder="popis" name='popis' onChange={(event) => {
-                            this.onchangeHandler(event)
-                        }}/>
-                        <Input placeholder="cena" name='cena' onChange={(event) => {
-                            this.onchangeHandler(event)
-                        }}/>
-                        <Button type="submit">Přidat</Button>
-                    </Form>
-                </div>
+    return (
+        <div>
+            <AppNavbar/>
+            <div style={{
+                marginTop: "20px"
+            }
+            }>
+                <Form onSubmit={(event) => {
+                    onNewItem(event)
+                }}>
+                    <Input placeholder="popis" name='popis' onChange={(event) => {
+                        changeValue(event)
+                    }}/>
+                    <Input placeholder="cena" name='cena' onChange={(event) => {
+                        changeValue(event)
+                    }}/>
+                    <Button type="submit">Přidat</Button>
+                </Form>
             </div>
-        )
-    }
+        </div>
+    )
 }
 
 export default AddDoprava

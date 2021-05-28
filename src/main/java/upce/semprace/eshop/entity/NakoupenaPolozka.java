@@ -17,13 +17,13 @@ public class NakoupenaPolozka {
     @ManyToOne
     private Produkt produkt;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Integer getMnozstvi(Integer value) {
@@ -40,5 +40,13 @@ public class NakoupenaPolozka {
 
     public void setNakup(Set<Nakup> nakup) {
         this.nakup = nakup;
+    }
+
+    public Produkt getProdukt() {
+        return produkt;
+    }
+
+    public void setProdukt(Produkt produkt) {
+        this.produkt = produkt;
     }
 }

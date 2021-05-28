@@ -20,8 +20,17 @@ public class Produkt {
     private boolean vNabidce;
     @Column
     private String cestaKObrazku;
-    @OneToMany(mappedBy = "id")
-    private Set<NakoupenaPolozka> nakoupenaPolozka;
+
+    public NakoupenaPolozka getNakoupenaPolozka() {
+        return nakoupenaPolozka;
+    }
+
+    public void setNakoupenaPolozka(NakoupenaPolozka nakoupenaPolozka) {
+        this.nakoupenaPolozka = nakoupenaPolozka;
+    }
+
+    @ManyToOne
+    private NakoupenaPolozka nakoupenaPolozka;
     @ManyToOne
     private Vyrobce vyrobce;
 
@@ -81,13 +90,6 @@ public class Produkt {
         this.cestaKObrazku = cestaKObrazku;
     }
 
-    public Set<NakoupenaPolozka> getNakoupenaPolozka() {
-        return nakoupenaPolozka;
-    }
-
-    public void setNakoupenaPolozka(Set<NakoupenaPolozka> nakoupenaPolozka) {
-        this.nakoupenaPolozka = nakoupenaPolozka;
-    }
 
     public Vyrobce getVyrobce() {
         return vyrobce;
