@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AppNavbar from './AppNavbar';
 import {Alert, Button, Container} from "react-bootstrap";
 import '../App.css';
@@ -58,7 +58,7 @@ const Products = () => {
     }
 
     const onAddToCart = (id) => {
-        BackendService.postCartItem(id)
+        BackendService.getCartAddItem(id)
     }
 
     return (

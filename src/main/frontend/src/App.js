@@ -17,6 +17,7 @@ import AdminManageVyrob from "./components/AdminManageVyrob";
 import AdminManagePlat from "./components/AdminManagePlat";
 import AddVyrobce from "./components/AddVyrobce";
 import AddPlatba from "./components/AddPlatba";
+import AdminNakup from "./components/AdminNakup";
 
 class App extends Component {
   render() {
@@ -40,6 +41,7 @@ class App extends Component {
             <Route path='/vyrobce/AdminManageVyrob' exact={true} component={AdminManageVyrob}/>
             <Route path='/vyrobce/AddVyrobce' exact={true} component={AddVyrobce}/>
             <Route path='/platba/AdminManagePlat' exact={true} component={AdminManagePlat}/>
+            <Route path='/obj/AdminNakup' exact={true} component={AdminNakup}/>
           </Switch>
         </HashRouter>
     )

@@ -1,14 +1,14 @@
+import React, {useEffect, useState} from 'react';
 import AppNavbar from './AppNavbar';
 import {Alert, Button, Container} from "react-bootstrap";
 import '../App.css';
 import BackendService from "../services/BackendService";
-import React, {useState, useEffect} from 'react';
 
-const Home = () => {
+const Products = () => {
     const [item, setItems] = useState([]);
 
     useEffect(() => {
-        BackendService.getTOPProduktList()
+        BackendService.getNakupy()
             .then((resp) => {
                 console.log(resp)
                 setItems(resp.data)
@@ -17,8 +17,8 @@ const Home = () => {
             })
     }, []);
 
-    const onAddToCart = (id) => {
-        BackendService.getCartAddItem(id)
+    const onViewDetail= (itemToView) => {
+
     }
 
 
@@ -31,15 +31,15 @@ const Home = () => {
                 }
                 }>
                     <Alert variant="primary">
-                        <h2>Vitame vas v nasem eshopu</h2>
+                        <h2>Zde je seznam vsech objednavek</h2>
                     </Alert>
-                    <h2>Zde jsou vybrane produkty s nejvetsu slevou</h2>
-                    {item && item.length > 0 && item.map(produkt =>
-                        <div key={produkt.id}>
-                            {produkt.nazev} ({produkt.popis}) ({produkt.cena}) ({produkt.slevaProcenta})
+                    {item && item.length > 0 && item.map(nakup =>
+                        <div key={nakup.id}>
+                            {nakup.objednavka} ({nakup.datumVytvoreni})
+                            ({nakup.stav})
                             <Button type="submit" onClick={(event) => {
-                                onAddToCart(produkt.id)
-                            }}>Pridej do kosiku</Button>
+                                onViewDetail(nakup)
+                            }}>Zobraz detail</Button>
                         </div>
                     )}
                 </div>
@@ -49,4 +49,4 @@ const Home = () => {
         ;
 }
 
-export default Home;
+export default Products;

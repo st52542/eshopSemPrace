@@ -3,26 +3,31 @@ package upce.semprace.eshop.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import upce.semprace.eshop.repository.NakoupenaPolozkaRepository;
-import upce.semprace.eshop.repository.NakupRepository;
-import upce.semprace.eshop.services.ShoppingCartService;
+import upce.semprace.eshop.services.CartService;
 
 @RestController
 @RequestMapping("/cart")
 @CrossOrigin("http://localhost:3000")
 public class NakoupenaPolozkaController {
     @Autowired
-    ShoppingCartService shoppingCartService;
+    CartService cartService;
 
-    @PostMapping("/shopping-cart-add/{id}")
-    public String shoppingCartAdd(@RequestBody Long id, Model model) {
-        shoppingCartService.add(id);
-        return "redirect:/shopping-cart";
+    @GetMapping("/add/{id}")
+    public String cartAdd(@PathVariable Long id, Model model) {
+        cartService.add(id);
+        return "add";
     }
 
-    @GetMapping("/shopping-cart")
-    public String showShoppingCart(Model model) {
-        model.addAttribute("shoppingCart", shoppingCartService.getCart());
-        return "shopping-cart";
+    @GetMapping("/delete/{id}")
+    public String cartDelete(@PathVariable Long id, Model model) {
+        cartService.delete(id);
+        return "delete";
+
+    }
+
+    @GetMapping("/order/{idUzivatel}/{idDoprava}/{idPlatba}")
+    public String order(@PathVariable Long idUzivatel, @PathVariable Long idDoprava, @PathVariable Long idPlatba, Model model) {
+        cartService.order(idUzivatel, idDoprava, idPlatba);
+        return "order";
     }
 }

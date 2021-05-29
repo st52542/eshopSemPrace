@@ -11,8 +11,8 @@ public class NakoupenaPolozka {
     @Column(nullable = false)
     private Integer mnozstvi;
 
-    @OneToMany(mappedBy = "id")
-    private Set<Nakup> nakup;
+    @ManyToOne
+    private Nakup nakup;
 
     @ManyToOne
     private Produkt produkt;
@@ -34,13 +34,6 @@ public class NakoupenaPolozka {
         this.mnozstvi = mnozstvi;
     }
 
-    public Set<Nakup> getNakup() {
-        return nakup;
-    }
-
-    public void setNakup(Set<Nakup> nakup) {
-        this.nakup = nakup;
-    }
 
     public Produkt getProdukt() {
         return produkt;
@@ -48,5 +41,14 @@ public class NakoupenaPolozka {
 
     public void setProdukt(Produkt produkt) {
         this.produkt = produkt;
+    }
+
+
+    public Nakup getNakup() {
+        return nakup;
+    }
+
+    public void setNakup(Nakup nakup) {
+        this.nakup = nakup;
     }
 }

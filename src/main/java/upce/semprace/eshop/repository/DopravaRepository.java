@@ -11,6 +11,7 @@ public interface DopravaRepository extends JpaRepository<Doprava,Long> {
 
     Optional<Doprava> findById(Long id);
 
+
     Doprava findByPopis(String popis);
 
     Doprava findByCena(Integer cena);

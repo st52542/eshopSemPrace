@@ -2,6 +2,7 @@ package upce.semprace.eshop.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Nakup {
@@ -20,8 +21,17 @@ public class Nakup {
     private Doprava doprava;
     @ManyToOne
     private Platba platba;
-    @ManyToOne
-    private NakoupenaPolozka nakoupenaPolozka;
+
+    public Set<NakoupenaPolozka> getNakoupenaPolozka() {
+        return nakoupenaPolozka;
+    }
+
+    public void setNakoupenaPolozka(Set<NakoupenaPolozka> nakoupenaPolozka) {
+        this.nakoupenaPolozka = nakoupenaPolozka;
+    }
+
+    @OneToMany(mappedBy = "id")
+    private Set<NakoupenaPolozka> nakoupenaPolozka;
 
     public void setId(Long id) {
         this.id = id;
@@ -80,11 +90,5 @@ public class Nakup {
         this.platba = platba;
     }
 
-    public NakoupenaPolozka getNakoupenaPolozka() {
-        return nakoupenaPolozka;
-    }
 
-    public void setNakoupenaPolozka(NakoupenaPolozka nakoupenaPolozka) {
-        this.nakoupenaPolozka = nakoupenaPolozka;
-    }
 }

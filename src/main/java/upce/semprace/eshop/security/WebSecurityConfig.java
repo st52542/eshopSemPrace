@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().
                 authorizeRequests()
-                .antMatchers(API,ROOT,STATIC,LOGIN,HOME,PRODUCTS,DOP,VY,PL,KO).permitAll()
+                .antMatchers(API,ROOT,STATIC,LOGIN,HOME,PRODUCTS,DOP,VY,PL,KO,NA,CA).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
@@ -76,4 +76,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         String VY = "/vyrobce/**";
         String PL = "/platba/**";
         String KO = "/cart/**";
+        String NA = "/nakup/**";
+        String CA = "/cart/**";
 }

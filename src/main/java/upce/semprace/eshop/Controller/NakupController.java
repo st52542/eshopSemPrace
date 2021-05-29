@@ -24,12 +24,12 @@ public class NakupController {
     }
 
     @GetMapping(value = {"","/"})
-    public List<Nakup> getProducts() {
+    public List<Nakup> getNakupy() {
         return nakupRepository.findAll();
     }
 
     @GetMapping("/nakup-detail/{id}")
-    public String zobrazDetailyPlatby(@PathVariable(required = false) Long id, Model model) {
+    public String zobrazDetailyNakupu(@PathVariable(required = false) Long id, Model model) {
         model.addAttribute("platba", nakupRepository.findById(id).get());
         return "platba-detail";
     }

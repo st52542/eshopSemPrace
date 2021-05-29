@@ -99,6 +99,9 @@ class AppNavbar extends Component {
                             <NavItem>
                                 <NavLink href="/#/platba/AdminManagePlat">Admin plateb</NavLink>
                             </NavItem>
+                            <NavItem>
+                                <NavLink href="/#/obj/AdminNakup">Admin nakup</NavLink>
+                            </NavItem>
                         </Nav>
                     )
                 }

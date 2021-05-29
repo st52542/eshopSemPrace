@@ -4,12 +4,10 @@ import upce.semprace.eshop.entity.Produkt;
 
 import java.util.Map;
 
-public interface ShoppingCartService {
+public interface CartService {
     void add(Long id);
 
-    void remove(Long id);
+    void delete(Long id);
 
-    Map<Produkt, Integer> getCart();
-
-    void checkout();
+    void order(Long idUzivatel, Long idDoprava, Long idPlatba);
 }
