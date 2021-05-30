@@ -3,9 +3,11 @@ import AppNavbar from './AppNavbar';
 import {Alert, Button, Container} from "react-bootstrap";
 import '../App.css';
 import BackendService from "../services/BackendService";
+import {useHistory} from "react-router-dom";
 
-const Products = () => {
+const AdminNakup = () => {
     const [item, setItems] = useState([]);
+    const history = useHistory()
 
     useEffect(() => {
         BackendService.getNakupy()
@@ -18,7 +20,17 @@ const Products = () => {
     }, []);
 
     const onViewDetail= (itemToView) => {
+        history.push("/obj/DetailNakup/" + itemToView)
+    }
 
+    const onAccept= (id) => {
+        BackendService.getPotvrdObj(id)
+            .then((resp) => {
+                console.log(resp)
+            }, (error) => {
+                console.log(error.toString())
+            })
+        window.location.reload();
     }
 
 
@@ -36,10 +48,13 @@ const Products = () => {
                     {item && item.length > 0 && item.map(nakup =>
                         <div key={nakup.id}>
                             {nakup.objednavka} ({nakup.datumVytvoreni})
-                            ({nakup.stav})
+                            ({String(nakup.stav)})
                             <Button type="submit" onClick={(event) => {
-                                onViewDetail(nakup)
+                                onViewDetail(nakup.id)
                             }}>Zobraz detail</Button>
+                            <Button type="submit" onClick={(event) => {
+                                onAccept(nakup.id)
+                            }}>Potvrd objednavku</Button>
                         </div>
                     )}
                 </div>
@@ -49,4 +64,4 @@ const Products = () => {
         ;
 }
 
-export default Products;
+export default AdminNakup;

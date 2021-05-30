@@ -111,6 +111,10 @@ class BackendService {
         return await axios.get(SERVER_ADDRESS + "/cart/add/" + id);
     }
 
+    async getCartItems() {
+        return await axios.get(SERVER_ADDRESS + "/cart/show/");
+    }
+
     async getCartDeleteItem(id) {
         return await axios.get(SERVER_ADDRESS + "/cart/delete/" + id);
     }
@@ -121,6 +125,18 @@ class BackendService {
 
     async getNakupy() {
         return await axios.get(SERVER_ADDRESS + "/nakup/");
+    }
+
+    async getDetailNakupu(id) {
+        return await axios.get(SERVER_ADDRESS + "/nakup/nakup-detail/" + id);
+    }
+
+    async getDetailNakupuPolozky(id) {
+        return await axios.get(SERVER_ADDRESS + "/nakup/nakup-detail-polozky/" + id);
+    }
+
+    async getPotvrdObj(id) {
+        return await axios.get(SERVER_ADDRESS + "/nakup/nakup-zmen-stav/" + id);
     }
 }
 

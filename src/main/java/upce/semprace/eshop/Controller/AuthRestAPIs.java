@@ -77,7 +77,6 @@ public class AuthRestAPIs {
                     HttpStatus.BAD_REQUEST);
         }
 
-        // Creating user's account
         Uzivatel user = new Uzivatel(signUpRequest.getFirstname(), signUpRequest.getLastname(),
                 signUpRequest.getUsername(), signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
@@ -107,14 +106,14 @@ public class AuthRestAPIs {
                 }
             });
         } else {
-            // default mode : User register
             Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
             roles.add(userRole);
         }
 
-        user.setJmeno(signUpRequest.getFirstname());
-        user.setAdresa("Praha je nej");
+        user.setJmeno(signUpRequest.getUsername());
+        user.setPrijmeni(signUpRequest.getUsername());
+        user.setAdresa(signUpRequest.getEmail());
         user.setRoles(roles);
         userRepository.save(user);
 

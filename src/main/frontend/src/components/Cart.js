@@ -3,62 +3,33 @@ import AppNavbar from './AppNavbar';
 import {Alert, Button, Container} from "react-bootstrap";
 import '../App.css';
 import BackendService from "../services/BackendService";
+import {useHistory} from "react-router-dom";
 
 const Products = () => {
     const [item, setItems] = useState([]);
+    const history = useHistory()
 
     useEffect(() => {
-        BackendService.getProduktList()
+        BackendService.getCartItems()
             .then((resp) => {
                 console.log(resp)
+                console.log(resp.data)
                 setItems(resp.data)
+                console.log(item)
+                debugger
             }, (error) => {
                 console.log(error.toString())
             })
     }, []);
 
-    const nastavOdNejmensiho = () => {
-        BackendService.getProduktASC().then((resp) => {
-            setItems(resp.data)
-        }, (error) => {
-            console.log(error.toString())
-        })
-    }
-
-    const nastavOdNejvetsiho = () => {
-        BackendService.getProduktDESC().then((resp) => {
-            setItems(resp.data)
-        }, (error) => {
-            console.log(error.toString())
-        })
-    }
-
-    const nastavFiltrNjelevnejsi = () => {
-        BackendService.getProductsLow().then((resp) => {
-            setItems(resp.data)
-        }, (error) => {
-            console.log(error.toString())
-        })
-    }
-
-    const nastavFiltrStred = () => {
-        BackendService.getProductsMiddle().then((resp) => {
-            setItems(resp.data)
-        }, (error) => {
-            console.log(error.toString())
-        })
-    }
-
-    const nastavFiltrNejdrazsi = () => {
-        BackendService.getProductsHigh().then((resp) => {
-            setItems(resp.data)
-        }, (error) => {
-            console.log(error.toString())
-        })
-    }
-
-    const onAddToCart = (id) => {
-        BackendService.getCartAddItem(id)
+    const onAccept= () => {
+        BackendService.getCartOrderItem(50,96,98)
+            .then((resp) => {
+                console.log(resp)
+            }, (error) => {
+                console.log(error.toString())
+            })
+        history.push("/")
     }
 
     return (
@@ -70,23 +41,19 @@ const Products = () => {
                 }
                 }>
                     <Alert variant="primary">
-                        <h2>Zde je seznam vsech produktu</h2>
+                        <h2>Zde je vas nakoupeny kosik</h2>
                     </Alert>
-                    <h2>Filtrovani produktu dle ceny</h2>
-                    <Button type="submit" onClick={nastavOdNejmensiho}>Serad od nejmensi ceny</Button>
-                    <Button type="submit" onClick={nastavOdNejvetsiho}>Serad od nejvetsi ceny</Button>
-                    <Button type="submit" onClick={nastavFiltrNjelevnejsi}>Vyfiltruj nejlevnejsi</Button>
-                    <Button type="submit" onClick={nastavFiltrStred}>Vyfiltruj stred</Button>
-                    <Button type="submit" onClick={nastavFiltrNejdrazsi}>Vyfiltruj nejdrazsi</Button>
                     {item && item.length > 0 && item.map(produkt =>
-                        <div key={produkt.id}>
-                            {produkt.nazev} ({produkt.popis})
-                            ({produkt.cena}) {produkt.vyrobce && (produkt.vyrobce.nazev)}
+                        <div>
+                            {produkt} ({produkt.value()})
                             <Button type="submit" onClick={(event) => {
-                                onAddToCart(produkt.id)
-                            }}>Pridej do kosiku</Button>
+
+                            }}>Odeber</Button>
                         </div>
                     )}
+                    <Button type="submit" onClick={(event) => {
+                        onAccept()
+                    }}>Potvrd objednavku</Button>
                 </div>
             </Container>
         </div>

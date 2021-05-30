@@ -1,5 +1,7 @@
 package upce.semprace.eshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -14,6 +16,7 @@ public class Doprava {
     private Integer cena;
 
     @OneToMany(mappedBy = "id")
+    @JsonIgnore
     private Set<Nakup> nakup;
 
     public void setId(Long id) {

@@ -1,5 +1,7 @@
 package upce.semprace.eshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 @Entity
@@ -13,6 +15,7 @@ public class Vyrobce {
     @Column(nullable = false)
     private String adresa;
     @OneToMany(mappedBy = "id")
+    @JsonIgnore
     private Set<Produkt> produkt;
 
     public Long getId() {

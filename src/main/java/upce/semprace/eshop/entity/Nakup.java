@@ -1,5 +1,7 @@
 package upce.semprace.eshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -31,6 +33,7 @@ public class Nakup {
     }
 
     @OneToMany(mappedBy = "id")
+    @JsonIgnore
     private Set<NakoupenaPolozka> nakoupenaPolozka;
 
     public void setId(Long id) {

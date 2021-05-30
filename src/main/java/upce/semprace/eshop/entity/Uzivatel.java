@@ -10,16 +10,24 @@ public class Uzivatel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(length = 45,nullable = false)
+    @Column(length = 45, nullable = false)
     private String jmeno;
-    @Column(length = 45,nullable = false)
+    @Column(length = 45, nullable = false)
     private String prijmeni;
-    @Column(length = 100,nullable = false,unique = true)
+    @Column(length = 100, nullable = false, unique = true)
     private String email;
-    @Column(length = 100,nullable = false)
+    @Column(length = 100, nullable = false)
     private String heslo;
-    @Column(length = 100,nullable = false)
+    @Column(length = 100, nullable = false)
     private String adresa;
+    @Column(length = 100)
+    private String username;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(mappedBy = "id")
+    private Set<Nakup> nakup;
 
     public Uzivatel(String jmeno, String prijmeni, String username, String email, String heslo) {
         this.jmeno = jmeno;
@@ -30,7 +38,6 @@ public class Uzivatel {
     }
 
     public Uzivatel() {
-
     }
 
     public String getUsername() {
@@ -41,20 +48,9 @@ public class Uzivatel {
         this.username = username;
     }
 
-    @Column(length = 100)
-    private String username;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
-
-    @OneToMany(mappedBy = "id")
-    private Set<Nakup> nakup;
-
-
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public Long getId() {
         return id;

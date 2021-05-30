@@ -1,9 +1,14 @@
 package upce.semprace.eshop.Controller;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import upce.semprace.eshop.entity.Produkt;
 import upce.semprace.eshop.services.CartService;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/cart")
@@ -22,7 +27,12 @@ public class NakoupenaPolozkaController {
     public String cartDelete(@PathVariable Long id, Model model) {
         cartService.delete(id);
         return "delete";
+    }
 
+    @GetMapping("/show/")
+    @ResponseBody
+    public Map<String,Integer> showCart(Model model) throws JSONException {
+        return cartService.getCart();
     }
 
     @GetMapping("/order/{idUzivatel}/{idDoprava}/{idPlatba}")
@@ -30,4 +40,5 @@ public class NakoupenaPolozkaController {
         cartService.order(idUzivatel, idDoprava, idPlatba);
         return "order";
     }
+
 }

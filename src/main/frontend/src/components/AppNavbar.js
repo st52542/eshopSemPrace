@@ -1,3 +1,4 @@
+/*
 import React, { Component } from 'react';
 import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavbarText, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -55,12 +56,12 @@ class AppNavbar extends Component {
 
     render() {
         return <Navbar color="dark" dark expand="md">
-            <NavbarBrand tag={Link} to="/home">Super duper eshop</NavbarBrand>
+            <NavbarBrand tag={Link} to="/#/home">Super duper eshop</NavbarBrand>
             <Nav className="mr-auto">
-                <NavLink href="/home">Home</NavLink>
-                {this.state.showUser && <NavLink href="/user">User</NavLink>}
-                {this.state.showPM && <NavLink href="/pm">PM</NavLink>}
-                {this.state.showAdmin && <NavLink href="/admin">Admin</NavLink>}
+                <NavLink href="/#/home">Home</NavLink>
+                {this.state.showUser && <NavLink href="/#/user">User</NavLink>}
+                {this.state.showPM && <NavLink href="/#/pm">PM</NavLink>}
+                {this.state.showAdmin && <NavLink href="/#/admin">Admin</NavLink>}
             </Nav>
             <NavbarToggler onClick={this.toggle}/>
             <Collapse isOpen={this.state.isOpen} navbar>
@@ -69,7 +70,7 @@ class AppNavbar extends Component {
                         <Nav className="ml-auto" navbar>
                             <NavItem>
                                 <NavbarText>
-                                    Signed in as: <a href="/profile">{this.state.username}</a>
+                                    Signed in as: <a href="/#/profile">{this.state.username}</a>
                                 </NavbarText>
                             </NavItem>
                             <NavItem>
@@ -102,6 +103,9 @@ class AppNavbar extends Component {
                             <NavItem>
                                 <NavLink href="/#/obj/AdminNakup">Admin nakup</NavLink>
                             </NavItem>
+                            <NavItem>
+                                <NavLink href="/#/obj/kosik">Kosik</NavLink>
+                            </NavItem>
                         </Nav>
                     )
                 }
@@ -110,4 +114,46 @@ class AppNavbar extends Component {
     }
 }
 
+export default withRouter(AppNavbar);*/
+import React, {useEffect, useState} from 'react'
+import {Nav, Navbar,} from 'react-bootstrap'
+import {useHistory, withRouter} from 'react-router-dom'
+import AuthenticationService from '../services/AuthenticationService'
+
+function AppNavbar() {
+    const [user, setUser] = useState(false)
+    const history = useHistory()
+
+    useEffect(() => {
+        const user = AuthenticationService.getCurrentUser();
+        if (user) {setUser(true)}
+    }, [])
+
+    const signOut = () => {
+        AuthenticationService.signOut();
+        history.push("/home")
+    }
+
+    return (
+        <Navbar bg="dark" variant="dark">
+            <Navbar.Brand href="#home">Super duper eshop</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Nav.Link href="/#/signin">Login</Nav.Link>
+            <Nav.Link href="/#/signup">SignUp</Nav.Link>
+            <Nav.Link href="/#/produkt/products">Produkty</Nav.Link>
+            <Nav.Link href="/#/obj/kosik">Kosik</Nav.Link>
+            <Nav className="mr-auto">
+                {user && <Nav.Link onClick={signOut} href="#" >Odhlasit</Nav.Link>}
+                {user && AuthenticationService.isAdmin() && <Nav.Link href="/#/produkt/AdminManageProd">Admin produkty</Nav.Link>}
+                {user && AuthenticationService.isAdmin() && <Nav.Link href="/#/doprava/AdminManageDop">Admin doprava</Nav.Link>}
+                {user && AuthenticationService.isAdmin() && <Nav.Link href="/#/vyrobce/AdminManageVyrob">Admin vyrobcu</Nav.Link>}
+                {user && AuthenticationService.isAdmin() && <Nav.Link href="/#/platba/AdminManagePlat">Admin plateb</Nav.Link>}
+                {user && AuthenticationService.isAdmin() && <Nav.Link href="/#/obj/AdminNakup">Admin nakup</Nav.Link>}
+                {user && <Nav.Link href="/#/profile">Moje udaje</Nav.Link>}
+            </Nav>
+        </Navbar>
+    )
+}
+
 export default withRouter(AppNavbar);
+

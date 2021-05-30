@@ -69,6 +69,14 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public Map<String, Integer> getCart() {
+        Map<String,Integer> cartForJson = new HashMap<>();
+        for (Produkt prod : kosik.keySet())
+            cartForJson.put(prod.getNazev(),kosik.get(prod));
+        return cartForJson;
+    }
+
+    @Override
     public void order(Long idUzivatel, Long idDoprava, Long idPlatba) {
         Date datum = new Date();
         Nakup nakup = new Nakup();

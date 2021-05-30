@@ -6,6 +6,7 @@ import BackendService from "../services/BackendService";
 
 const Products = () => {
     const [item, setItems] = useState([]);
+    const [buttonPop,setButtonPop] = useState(false);
 
     useEffect(() => {
         BackendService.getProduktList()
@@ -58,7 +59,7 @@ const Products = () => {
     }
 
     const onAddToCart = (id) => {
-        BackendService.getCartAddItem(id)
+        BackendService.getCartAddItem(id).then()
     }
 
     return (
