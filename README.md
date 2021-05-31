@@ -80,9 +80,6 @@ adresy a pro něj jsou nastaveny různé autentizační požadavky.
 
 ## Nasazená aplikace
 
-Aplikace je nasazena na webu heroku a ****. Pro frontend je použit web **** a 
-pro backend je použito heroku.
+Aplikace je nasazena na webu heroku. Pro frontend i backend je použit heroku.
 
-Web je dotstupný na adrese: [***]()
-
-pokracovani priste a take kontrola
+Web je dotstupný na adrese: [https://nnpiasemprace.herokuapp.com](https://nnpiasemprace.herokuapp.com)
