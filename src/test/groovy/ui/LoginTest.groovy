@@ -4,6 +4,8 @@ import org.junit.jupiter.api.*
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.support.ui.WebDriverWait
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Import
@@ -13,8 +15,9 @@ import upce.semprace.eshop.repository.UzivatelRepository
 
 @SpringBootTest(classes = EshopApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @Import(Creator.class)
-class LoginTests {
+class LoginTest {
     private WebDriver driver;
+    String port = 8080
 
     @Autowired
     UzivatelRepository uzivatelRepository;
@@ -24,14 +27,13 @@ class LoginTests {
 
     @BeforeAll
     public static void setupWebdriverChromeDriver() {
-        String chromeDriverPath = LoginTests.class.getResource("/chromedriver.exe").getFile();
+        String chromeDriverPath = LoginTest.class.getResource("/chromedriver.exe").getFile();
         System.setProperty("webdriver.chrome.driver", chromeDriverPath);
     }
 
     @BeforeEach
     public void setup() {
         driver = new ChromeDriver();
-        uzivatelRepository.deleteAll();
     }
 
     @AfterEach
@@ -43,11 +45,15 @@ class LoginTests {
 
     @Test
     public void userLogin() {
-        driver.get("http://localhost:3000/#/signin");
-        driver.findElement(By.xpath("//*[contains(text(), 'uzivatelske jmeno')]")).sendKeys("rootroot");
-        driver.findElement(By.xpath("//*[contains(text(), 'heslo')]")).sendKeys("rootroot");
-        driver.findElement(By.xpath("//*[contains(text(), 'Prihlas')]")).click();
-        Assertions.assertEquals(1, driver.findElements(By.xpath("//*[contains(text(), 'Odhlasit')]")).size());
+        driver.get("http://localhost:" + port + "/#/signin");
+        driver.findElement(By.name("username")).sendKeys("rootroot");
+        driver.findElement(By.name("password")).sendKeys("rootroot");
+        driver.findElement(By.name("submitButton")).click();
+
+        WebDriverWait wt = new WebDriverWait(driver, 7);
+        wt.until(ExpectedConditions.urlContains("#/home"));
+
+       // Assertions.assertEquals(1, driver.findElements(By.xpath("//a[@href='/#/produkt/AdminManagePro']")).size());
     }
 
 }
