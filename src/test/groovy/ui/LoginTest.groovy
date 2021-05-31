@@ -1,10 +1,19 @@
 package ui
 
-import org.junit.jupiter.api.*
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
+import org.openqa.selenium.html5.LocalStorage
+import org.openqa.selenium.html5.WebStorage
+import org.openqa.selenium.remote.Augmenter
 import org.openqa.selenium.support.ui.WebDriverWait
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,6 +28,8 @@ import upce.semprace.eshop.repository.UzivatelRepository
 class LoginTest {
     private WebDriver driver;
     String port = 8080
+    private LocalStorage localStorage;
+
 
     @Autowired
     UzivatelRepository uzivatelRepository;
@@ -43,6 +54,10 @@ class LoginTest {
         chromeOptions.setHeadless(true);
 
         driver = new ChromeDriver(chromeOptions);
+
+        WebStorage webStorage = (WebStorage) new Augmenter().augment(driver);
+        localStorage = webStorage.getLocalStorage();
+
     }
 
     @AfterEach
@@ -61,8 +76,7 @@ class LoginTest {
 
         WebDriverWait wt = new WebDriverWait(driver, 7);
         wt.until(ExpectedConditions.urlContains("#/home"));
-
-        //Assertions.assertEquals(1, driver.findElements(By.xpath("//a[@href='/#/produkt/AdminManagePro']")).size());
+        assertTrue(localStorage.keySet().contains("user"));
     }
 
 }

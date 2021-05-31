@@ -30,14 +30,7 @@ public class NakupController {
 
     @GetMapping(value = {"","/"})
     public List<Nakup> getNakupy(Model model) {
-        return nakupRepository.findAdmin();
-    }
-
-    @GetMapping(value = {"/aaa"})
-    @ResponseBody
-    public Nakup getNakupys(Model model) {
-        Optional<Nakup> all = nakupRepository.findById(11L);
-        return all.get();
+        return nakupRepository.findAll();
     }
 
     @GetMapping("/nakup-detail/{id}")
