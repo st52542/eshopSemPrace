@@ -1,13 +1,17 @@
 package upce.semprace.eshop.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import upce.semprace.eshop.dto.PridejZmenProduktDto;
+import upce.semprace.eshop.dto.StrankaProduktDto;
 import upce.semprace.eshop.entity.Produkt;
 import upce.semprace.eshop.repository.ProduktRepository;
+import upce.semprace.eshop.repository.ProduktRepositoryPaging;
+import upce.semprace.eshop.repository.VyrobceRepository;
 
 import java.util.List;
 
@@ -17,6 +21,15 @@ import java.util.List;
 public class ProduktController {
     @Autowired
     ProduktRepository produktRepository;
+
+    @Autowired
+    ProduktRepositoryPaging produktRepositoryPaging;
+
+    @Autowired
+    VyrobceRepository vyrobceRepository;
+
+    int actualPageMin=0;
+    int actualPageMax=5;
 
     @ExceptionHandler(RuntimeException.class)
     public String ochranaChyb() {
@@ -64,6 +77,7 @@ public class ProduktController {
         produkt.setSlevaProcenta(pridejZmenProduktDto.getSlevaProcenta());
         produkt.setvNabidce(pridejZmenProduktDto.isvNabidce());
         produkt.setCestaKObrazku(pridejZmenProduktDto.getCestaKObrazku());
+        produkt.setVyrobce(vyrobceRepository.findById(pridejZmenProduktDto.getVyrobce()).get());
         produktRepository.save(produkt);
         return "redirect:/produkt";
     }
@@ -107,5 +121,11 @@ public class ProduktController {
     @GetMapping(value = {"/productHigh"})
     public List<Produkt> getProductsHigh() {
         return produktRepository.findSixtyOneToMax();
+    }
+
+    @PostMapping(value = {"/product/page"})
+    public Page<Produkt> getProductsPaging(@RequestBody StrankaProduktDto strankaProduktDto) {
+        Pageable secondPageWithFiveElements = PageRequest.of(strankaProduktDto.getMin(), strankaProduktDto.getMax());
+        return produktRepositoryPaging.findAll(secondPageWithFiveElements);
     }
 }

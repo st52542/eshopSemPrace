@@ -4,40 +4,22 @@ import javax.persistence.Column;
 import java.util.Date;
 
 public class PridejZmenNakupDto {
-    private Long id;
-    private Date datumVytvoreni;
-    private Integer objednavka;
-    private Boolean stav;
+    private Long doprava;
+    private Long platba;
 
-    public Long getId() {
-        return id;
+    public Long getDoprava() {
+        return doprava;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setDoprava(Long doprava) {
+        this.doprava = doprava;
     }
 
-    public Date getDatumVytvoreni() {
-        return datumVytvoreni;
+    public Long getPlatba() {
+        return platba;
     }
 
-    public void setDatumVytvoreni(Date datumVytvoreni) {
-        this.datumVytvoreni = datumVytvoreni;
-    }
-
-    public Integer getObjednavka() {
-        return objednavka;
-    }
-
-    public void setObjednavka(Integer objednavka) {
-        this.objednavka = objednavka;
-    }
-
-    public Boolean getStav() {
-        return stav;
-    }
-
-    public void setStav(Boolean stav) {
-        this.stav = stav;
+    public void setPlatba(Long platba) {
+        this.platba = platba;
     }
 }

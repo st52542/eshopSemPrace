@@ -119,8 +119,8 @@ class BackendService {
         return await axios.get(SERVER_ADDRESS + "/cart/delete/" + id);
     }
 
-    async getCartOrderItem(idUzivatel, idDoprava, idPlatba) {
-        return await axios.get(SERVER_ADDRESS + "/cart/order/" + idUzivatel + "/" + idDoprava + "/" + idPlatba);
+    async postCartOrderItem(orderDetail) {
+        return await axios.post(SERVER_ADDRESS + "/cart/order/", orderDetail);
     }
 
     async getNakupy() {
@@ -137,6 +137,10 @@ class BackendService {
 
     async getPotvrdObj(id) {
         return await axios.get(SERVER_ADDRESS + "/nakup/nakup-zmen-stav/" + id);
+    }
+
+    async getStrankovani(data) {
+        return await axios.post(SERVER_ADDRESS + "/produkt/product/page", data);
     }
 }
 

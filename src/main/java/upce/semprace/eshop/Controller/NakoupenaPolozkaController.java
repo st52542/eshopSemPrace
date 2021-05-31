@@ -1,14 +1,19 @@
 package upce.semprace.eshop.Controller;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import upce.semprace.eshop.entity.Produkt;
+import upce.semprace.eshop.dto.PridejZmenNakupDto;
+import upce.semprace.eshop.entity.Uzivatel;
+import upce.semprace.eshop.repository.UzivatelRepository;
+import upce.semprace.eshop.security.services.UserPrinciple;
 import upce.semprace.eshop.services.CartService;
+import upce.semprace.eshop.services.KosikPair;
 
-import java.util.Map;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/cart")
@@ -16,6 +21,9 @@ import java.util.Map;
 public class NakoupenaPolozkaController {
     @Autowired
     CartService cartService;
+
+    @Autowired
+    UzivatelRepository uzivatelRepository;
 
     @GetMapping("/add/{id}")
     public String cartAdd(@PathVariable Long id, Model model) {
@@ -31,13 +39,27 @@ public class NakoupenaPolozkaController {
 
     @GetMapping("/show/")
     @ResponseBody
-    public Map<String,Integer> showCart(Model model) throws JSONException {
+    public List<KosikPair> showCart(Model model) throws JSONException {
         return cartService.getCart();
     }
 
-    @GetMapping("/order/{idUzivatel}/{idDoprava}/{idPlatba}")
-    public String order(@PathVariable Long idUzivatel, @PathVariable Long idDoprava, @PathVariable Long idPlatba, Model model) {
-        cartService.order(idUzivatel, idDoprava, idPlatba);
+    @PostMapping("/order/")
+    public String order(@RequestBody PridejZmenNakupDto pridejZmenNakupDto) {
+        UserPrinciple principle = null;
+        Optional<Uzivatel> user = null;
+        try {
+            principle = (UserPrinciple) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            user = uzivatelRepository.findByUsername(principle.getUsername());
+        } catch (Exception e) {
+        }
+
+        Long idUzivatel = 0L;
+        if (user != null && user.isPresent()) {
+            idUzivatel = uzivatelRepository.findById(user.get().getId()).get().getId();
+        }else{
+            idUzivatel = uzivatelRepository.findByUsername("xxxx").get().getId();
+        }
+        cartService.order(idUzivatel, pridejZmenNakupDto.getDoprava(), pridejZmenNakupDto.getPlatba());
         return "order";
     }
 

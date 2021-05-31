@@ -69,12 +69,23 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Map<String, Integer> getCart() {
-        Map<String,Integer> cartForJson = new HashMap<>();
-        for (Produkt prod : kosik.keySet())
-            cartForJson.put(prod.getNazev(),kosik.get(prod));
-        return cartForJson;
+    public List<KosikPair> getCart() {
+        final List<KosikPair> kosik = new ArrayList<>();
+        for (Produkt prod : this.kosik.keySet()){
+            kosik.add(new KosikPair(prod, this.kosik.get(prod)));
+        }
+        return kosik;
     }
+
+    @Override
+    public List<KosikPair> getCartMore() {
+        final List<KosikPair> kosik = new ArrayList<>();
+        for (Produkt prod : this.kosik.keySet()){
+            kosik.add(new KosikPair(prod, this.kosik.get(prod)));
+        }
+        return kosik;
+    }
+
 
     @Override
     public void order(Long idUzivatel, Long idDoprava, Long idPlatba) {

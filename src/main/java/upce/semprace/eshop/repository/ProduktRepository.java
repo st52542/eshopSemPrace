@@ -1,5 +1,6 @@
 package upce.semprace.eshop.repository;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import upce.semprace.eshop.entity.Produkt;
@@ -33,4 +34,6 @@ public interface ProduktRepository extends JpaRepository<Produkt, Long> {
 
     @Query(value = "SELECT * FROM Produkt pr WHERE pr.v_nabidce = true AND pr.cena > 60 ORDER BY pr.cena ASC", nativeQuery = true)
     List<Produkt> findSixtyOneToMax();
+
+
 }

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import AppNavbar from './AppNavbar';
 import {Button, Form, Input} from "reactstrap";
 import BackendService from "../services/BackendService";
@@ -7,13 +7,27 @@ import {useHistory} from "react-router-dom";
 const AddProduct = () => {
 
     const [newItem, setNewItem] = useState({
-            nazev: undefined,
-            popis: undefined,
-            cena: 0,
-            slevaProcenta: 0,
-            vNabidce: false
+        nazev: undefined,
+        popis: undefined,
+        cena: 0,
+        slevaProcenta: 0,
+        vNabidce: false,
+        vyrobce: 0
     });
+
+    const [newItemN, setNewItemN] = useState([])
+
     const history = useHistory()
+
+    useEffect(() => {
+        BackendService.getVyrobceList()
+            .then((resp) => {
+                console.log(resp)
+                setNewItemN(resp.data)
+            }, (error) => {
+                console.log(error.toString())
+            })
+    }, []);
 
     const onNewItem = (event) => {
         event.preventDefault()
@@ -24,7 +38,11 @@ const AddProduct = () => {
     }
 
     const changeValue = (event) => {
-        setNewItem({...newItem, [event.target.name] : event.target.value})
+        setNewItem({...newItem, [event.target.name]: event.target.value})
+    }
+
+    const changeValues = (event) => {
+        newItem.vyrobce = event.target.value
     }
 
     return (
@@ -49,6 +67,17 @@ const AddProduct = () => {
                     <Input placeholder="slevaProcenta" name='slevaProcenta' onChange={(event) => {
                         changeValue(event)
                     }}/>
+                    <select onChange={(event) => {
+                        changeValues(event)
+                    }}>
+                        {newItemN.map(item => (
+                            <option key={item.id}
+                                    value={item.id}
+                            >
+                                {item.nazev}
+                            </option>
+                        ))}
+                    </select>
                     <Button type="submit">Přidat</Button>
                 </Form>
             </div>

@@ -3,10 +3,15 @@ import AppNavbar from './AppNavbar';
 import {Alert, Button, Container} from "react-bootstrap";
 import '../App.css';
 import BackendService from "../services/BackendService";
+import data from "bootstrap/js/src/dom/data";
 
 const Products = () => {
     const [item, setItems] = useState([]);
-    const [buttonPop,setButtonPop] = useState(false);
+
+    const [newItem] = useState({
+        min: 0,
+        max: 0
+    });
 
     useEffect(() => {
         BackendService.getProduktList()
@@ -58,6 +63,20 @@ const Products = () => {
         })
     }
 
+    const nastavStankovani = () => {
+        debugger
+        newItem.max=newItem.max+5
+        console.log(newItem)
+        BackendService.getStrankovani(newItem)
+            .then((resp) => {
+                console.log(resp)
+                debugger
+                setItems(resp.data.content)
+            }, (error) => {
+                console.log(error.toString())
+            })
+    }
+
     const onAddToCart = (id) => {
         BackendService.getCartAddItem(id).then()
     }
@@ -79,6 +98,7 @@ const Products = () => {
                     <Button type="submit" onClick={nastavFiltrNjelevnejsi}>Vyfiltruj nejlevnejsi</Button>
                     <Button type="submit" onClick={nastavFiltrStred}>Vyfiltruj stred</Button>
                     <Button type="submit" onClick={nastavFiltrNejdrazsi}>Vyfiltruj nejdrazsi</Button>
+                    <Button type="submit" onClick={nastavStankovani}>Strankuj a nacti dalsi</Button>
                     {item && item.length > 0 && item.map(produkt =>
                         <div key={produkt.id}>
                             {produkt.nazev} ({produkt.popis})

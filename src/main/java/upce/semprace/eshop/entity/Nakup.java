@@ -23,15 +23,6 @@ public class Nakup {
     private Doprava doprava;
     @ManyToOne
     private Platba platba;
-
-    public Set<NakoupenaPolozka> getNakoupenaPolozka() {
-        return nakoupenaPolozka;
-    }
-
-    public void setNakoupenaPolozka(Set<NakoupenaPolozka> nakoupenaPolozka) {
-        this.nakoupenaPolozka = nakoupenaPolozka;
-    }
-
     @OneToMany(mappedBy = "id")
     @JsonIgnore
     private Set<NakoupenaPolozka> nakoupenaPolozka;
@@ -39,7 +30,6 @@ public class Nakup {
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public Long getId() {
         return id;
@@ -93,5 +83,11 @@ public class Nakup {
         this.platba = platba;
     }
 
+    public Set<NakoupenaPolozka> getNakoupenaPolozka() {
+        return nakoupenaPolozka;
+    }
 
+    public void setNakoupenaPolozka(Set<NakoupenaPolozka> nakoupenaPolozka) {
+        this.nakoupenaPolozka = nakoupenaPolozka;
+    }
 }

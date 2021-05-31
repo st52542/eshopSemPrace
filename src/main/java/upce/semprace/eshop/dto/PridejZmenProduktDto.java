@@ -1,7 +1,5 @@
 package upce.semprace.eshop.dto;
 
-import javax.persistence.Column;
-
 public class PridejZmenProduktDto {
     private Long id;
     private String nazev;
@@ -10,6 +8,7 @@ public class PridejZmenProduktDto {
     private int slevaProcenta;
     private boolean vNabidce;
     private String cestaKObrazku;
+    private Long vyrobce;
 
     public Long getId() {
         return id;
@@ -65,5 +64,13 @@ public class PridejZmenProduktDto {
 
     public void setCestaKObrazku(String cestaKObrazku) {
         this.cestaKObrazku = cestaKObrazku;
+    }
+
+    public Long getVyrobce() {
+        return vyrobce;
+    }
+
+    public void setVyrobce(Long vyrobce) {
+        this.vyrobce = vyrobce;
     }
 }

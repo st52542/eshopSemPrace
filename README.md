@@ -39,7 +39,7 @@ Ve složce frontendu [frontend](src/main/frontend) je potřeba spustit tento př
 Ve vývojovém režimu aplikace poběží na adrese [http://localhost:3000](http://localhost:3000).
 Na tuto adresu přejděte ve Svém prohlížeči.
 
-API backendu aplikace je dostupný na adrese [http://localhost:8080](http://localhost:8080).
+API backendu aplikace je dostupné na adrese [http://localhost:8080](http://localhost:8080).
 
 pokracovani priste a take kontrola
 

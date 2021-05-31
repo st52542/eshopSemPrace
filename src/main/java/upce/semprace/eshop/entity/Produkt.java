@@ -1,5 +1,7 @@
 package upce.semprace.eshop.entity;
 
+import upce.semprace.eshop.Controller.VyrobceController;
+
 import javax.persistence.*;
 import java.util.Set;
 
