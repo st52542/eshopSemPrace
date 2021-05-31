@@ -12,7 +12,7 @@ public class VyrobceTestDataTest {
 
     public Vyrobce addVyrobce1() {
         Vyrobce vyrobce = new Vyrobce();
-        vyrobce.setNazev("vyrobce1");
+        vyrobce.setNazev("vyrobce11");
         vyrobce.setAdresa("tamATam1");
         vyrobceRepository.save(vyrobce);
         return vyrobce;
@@ -20,7 +20,7 @@ public class VyrobceTestDataTest {
 
     public Vyrobce addVyrobce2() {
         Vyrobce vyrobce = new Vyrobce();
-        vyrobce.setNazev("vyrobce2");
+        vyrobce.setNazev("vyrobce22");
         vyrobce.setAdresa("tamATam2");
         vyrobceRepository.save(vyrobce);
         return vyrobce;
@@ -28,7 +28,7 @@ public class VyrobceTestDataTest {
 
     public Vyrobce addVyrobce3() {
         Vyrobce vyrobce = new Vyrobce();
-        vyrobce.setNazev("vyrobce3");
+        vyrobce.setNazev("vyrobce33");
         vyrobce.setAdresa("tamATam3");
         vyrobceRepository.save(vyrobce);
         return vyrobce;

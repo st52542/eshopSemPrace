@@ -51,8 +51,8 @@ public class ProduktTests {
         produktTestDataFactory.addProdukt1();
         produktTestDataFactory.addProdukt2();
         produktTestDataFactory.addProdukt3();
-        Produkt result = produktRepository.findByNazev("produkt2");
-        Assertions.assertTrue(result.getNazev() == "produkt2");
+        Produkt result = produktRepository.findByNazev("produkt22");
+        Assertions.assertTrue(result.getNazev() == "produkt22");
     }
 
 
@@ -63,7 +63,7 @@ public class ProduktTests {
         produktTestDataFactory.addProdukt1();
         produktTestDataFactory.addProdukt2();
         produktTestDataFactory.addProdukt3();
-        Produkt result = produktRepository.findByNazev("produkt2");
+        Produkt result = produktRepository.findByNazev("produkt22");
         produktRepository.removeProduktById(result.getId());
         Assertions.assertTrue(produktRepository.findAll().size() == testValue);
     }

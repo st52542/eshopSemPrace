@@ -4,6 +4,7 @@ import org.junit.jupiter.api.*
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.support.ui.WebDriverWait
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.springframework.beans.factory.annotation.Autowired
@@ -33,7 +34,15 @@ class LoginTest {
 
     @BeforeEach
     public void setup() {
-        driver = new ChromeDriver();
+        String circleCIChromedriverPath = "/usr/local/bin/chromedriver";
+        if (new File(circleCIChromedriverPath).exists()) {
+            System.setProperty("webdriver.chrome.driver", circleCIChromedriverPath);
+        }
+
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.setHeadless(true);
+
+        driver = new ChromeDriver(chromeOptions);
     }
 
     @AfterEach
@@ -53,7 +62,7 @@ class LoginTest {
         WebDriverWait wt = new WebDriverWait(driver, 7);
         wt.until(ExpectedConditions.urlContains("#/home"));
 
-       // Assertions.assertEquals(1, driver.findElements(By.xpath("//a[@href='/#/produkt/AdminManagePro']")).size());
+        //Assertions.assertEquals(1, driver.findElements(By.xpath("//a[@href='/#/produkt/AdminManagePro']")).size());
     }
 
 }

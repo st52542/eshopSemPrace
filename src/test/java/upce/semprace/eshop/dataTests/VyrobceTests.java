@@ -50,8 +50,8 @@ public class VyrobceTests {
         vyrobceTestDataTest.addVyrobce1();
         vyrobceTestDataTest.addVyrobce2();
         vyrobceTestDataTest.addVyrobce3();
-        Vyrobce result = vyrobceRepository.findByNazev("vyrobce2");
-        Assertions.assertTrue(result.getNazev() == "vyrobce2");
+        Vyrobce result = vyrobceRepository.findByNazev("vyrobce22");
+        Assertions.assertTrue(result.getNazev() == "vyrobce22");
     }
 
 
@@ -62,7 +62,7 @@ public class VyrobceTests {
         vyrobceTestDataTest.addVyrobce1();
         vyrobceTestDataTest.addVyrobce2();
         vyrobceTestDataTest.addVyrobce3();
-        Vyrobce result = vyrobceRepository.findByNazev("vyrobce2");
+        Vyrobce result = vyrobceRepository.findByNazev("vyrobce22");
         vyrobceRepository.removeVyrobceById(result.getId());
         Assertions.assertTrue(vyrobceRepository.findAll().size() == testValue);
     }

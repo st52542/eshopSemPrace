@@ -12,7 +12,7 @@ public class ProduktTestDataFactory {
 
     public Produkt addProdukt1() {
         Produkt produkt = new Produkt();
-        produkt.setNazev("produkt1");
+        produkt.setNazev("produkt11");
         produkt.setPopis("popis popis popis 1");
         produkt.setCena(500);
         produkt.setSlevaProcenta(0);
@@ -24,7 +24,7 @@ public class ProduktTestDataFactory {
 
     public Produkt addProdukt2() {
         Produkt produkt = new Produkt();
-        produkt.setNazev("produkt2");
+        produkt.setNazev("produkt22");
         produkt.setPopis("popis popis popis 2");
         produkt.setCena(100);
         produkt.setSlevaProcenta(50);
@@ -36,7 +36,7 @@ public class ProduktTestDataFactory {
 
     public Produkt addProdukt3() {
         Produkt produkt = new Produkt();
-        produkt.setNazev("produkt3");
+        produkt.setNazev("produkt33");
         produkt.setPopis("popis popis popis 3");
         produkt.setCena(1000);
         produkt.setSlevaProcenta(10);

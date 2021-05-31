@@ -29,6 +29,7 @@ public class Uzivatel {
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "id")
+    @JsonIgnore
     private Set<Nakup> nakup;
 
     public Uzivatel(String jmeno, String prijmeni, String username, String email, String heslo) {
