@@ -89,11 +89,6 @@ public class ProduktController {
         return produktRepository.findAll();
     }
 
-    @GetMapping("/produkt-zmen-stav/{id}")
-    public void zmenStav(@PathVariable(required = false) Long id, Model model) {
-        produktRepository.zmenStav(false,id);
-    }
-
     @GetMapping(value = {"", "/"})
     public List<Produkt> getTopProducts() {
         return produktRepository.findTop();
