@@ -47,8 +47,8 @@ const AdminNakup = () => {
                     </Alert>
                     {item && item.length > 0 && item.map(nakup =>
                         <div key={nakup.id}>
-                            {nakup.objednavka} ({nakup.datumVytvoreni})
-                            ({String(nakup.stav)})
+                            cislo objednavky: {nakup.objednavka}, datum vytvoreni objednavky: {nakup.datumVytvoreni},
+                            stav objednavky: {String(nakup.stav)}
                             <Button type="submit" onClick={(event) => {
                                 onViewDetail(nakup.id)
                             }}>Zobraz detail</Button>

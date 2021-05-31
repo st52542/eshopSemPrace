@@ -43,8 +43,9 @@ const AdminManageProd = () => {
                     </Alert>
                     {item && item.length > 0 && item.map(produkt =>
                         <div key={produkt.id}>
-                            {produkt.nazev} ({produkt.popis})
-                            ({produkt.cena}) {produkt.vyrobce && (produkt.vyrobce.nazev)}
+                            nazev produktu: {produkt.nazev}, popis produktu: {produkt.popis},
+                            cena produktu: {produkt.cena}, nazev produktu: {produkt.popis},
+                            sleva: {produkt.slevaProcenta}, vyrobce: {produkt.vyrobce && (produkt.vyrobce.nazev)}
                             <Button type="submit" onClick={(e) => {
                                 onDeleteItem(produkt)
                             }}>smaz produkt</Button>

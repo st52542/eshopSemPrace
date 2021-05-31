@@ -44,8 +44,8 @@ const AdminManageDop =()=> {
                         </Alert>
                         {item && item.length > 0 && item.map(dopravy =>
                             <div key={dopravy.id}>
-                                ({dopravy.popis})
-                                ({dopravy.cena})
+                                jmeno dopravce: {dopravy.popis},
+                                cena za dopravu: {dopravy.cena}
                                 <Button type="submit" onClick={(event) => {
                                     onDeleteItem(dopravy)
                                 }}>smaz dopravy</Button>
@@ -53,7 +53,7 @@ const AdminManageDop =()=> {
                         )}
                         <Button type="submit" onClick={(event) => {
                             onAddItem()
-                        }}>pridej novy dopravy</Button>
+                        }}>pridej novou dopravy</Button>
                     </div>
                 </Container>
             </div>

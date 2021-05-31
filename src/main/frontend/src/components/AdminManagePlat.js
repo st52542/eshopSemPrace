@@ -43,8 +43,8 @@ const AdminManagePlat =()=> {
                         </Alert>
                         {item && item.length > 0 && item.map(platba =>
                             <div key={platba.id}>
-                                ({platba.popis})
-                                ({platba.prevod})
+                                jmeno platby: {platba.popis},
+                                prevod vuci CZK: {platba.prevod}
                                 <Button type="submit" onClick={(event) => {
                                     onDeleteItem(platba)
                                 }}>smaz platba</Button>

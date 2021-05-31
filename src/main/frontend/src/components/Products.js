@@ -63,13 +63,9 @@ const Products = () => {
     }
 
     const nastavStankovani = () => {
-        debugger
         newItem.max=newItem.max+5
-        console.log(newItem)
         BackendService.getStrankovani(newItem)
             .then((resp) => {
-                console.log(resp)
-                debugger
                 setItems(resp.data.content)
             }, (error) => {
                 console.log(error.toString())
@@ -100,8 +96,9 @@ const Products = () => {
                     <Button type="submit" onClick={nastavStankovani}>Strankuj a nacti dalsi</Button>
                     {item && item.length > 0 && item.map(produkt =>
                         <div key={produkt.id}>
-                            {produkt.nazev} ({produkt.popis})
-                            ({produkt.cena}) {produkt.vyrobce && (produkt.vyrobce.nazev)}
+                            nazev produktu: {produkt.nazev}, popis produktu: {produkt.popis},
+                            cena produktu: {produkt.cena}, nazev produktu: {produkt.popis},
+                            sleva: {produkt.slevaProcenta}, vyrobce: {produkt.vyrobce && (produkt.vyrobce.nazev)}
                             <Button type="submit" onClick={(event) => {
                                 onAddToCart(produkt.id)
                             }}>Pridej do kosiku</Button>

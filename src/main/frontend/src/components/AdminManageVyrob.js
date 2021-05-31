@@ -44,8 +44,8 @@ const AdminManageVyrob =()=> {
                         </Alert>
                         {item && item.length > 0 && item.map(vyrobce =>
                             <div key={vyrobce.id}>
-                                ({vyrobce.nazev})
-                                ({vyrobce.adresa})
+                                jmeno vyrobce: {vyrobce.nazev},
+                                adresa vyrobce: {vyrobce.adresa}
                                 <Button type="submit" onClick={(event) => {
                                     onDeleteItem(vyrobce)
                                 }}>smaz vyrobce</Button>

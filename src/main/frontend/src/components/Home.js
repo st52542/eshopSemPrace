@@ -36,7 +36,7 @@ const Home = () => {
                     <h2>Zde jsou vybrane produkty s nejvetsu slevou</h2>
                     {item && item.length > 0 && item.map(produkt =>
                         <div key={produkt.id}>
-                            {produkt.nazev} ({produkt.popis}) ({produkt.cena}) ({produkt.slevaProcenta})
+                            Nazev produktu: {produkt.nazev}, cena: {produkt.cena}, sleva: {produkt.slevaProcenta}
                             <Button type="submit" onClick={(event) => {
                                 onAddToCart(produkt.id)
                             }}>Pridej do kosiku</Button>

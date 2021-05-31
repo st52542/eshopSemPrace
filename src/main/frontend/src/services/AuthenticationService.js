@@ -4,40 +4,47 @@ const userKey = "user";
 const SERVER_PREFIX = "http://localhost:8080"
 
 const AuthenticationService = {
-    signIn : function (username, password) {
+    signIn: function (username, password) {
         return axios.post(`${SERVER_PREFIX}/api/auth/signin`, {username, password})
             .then(response => {
-                if (response.data.accessToken)
-                {
+                if (response.data.accessToken) {
                     let value = JSON.stringify(response.data)
                     localStorage.setItem(userKey, value)
                 }
                 return response.data;
             })
-            .catch(err => {throw err;})
+            .catch(err => {
+                throw err;
+            })
     },
 
-    signOut : function () {localStorage.removeItem(userKey) },
+    signOut: function () {
+        localStorage.removeItem(userKey)
+    },
 
-    register : function async (user) {
+    register: function async(user) {
         return axios.post(`${SERVER_PREFIX}/api/auth/signup`, user);
     },
 
-    isSignedIn : function async () { return localStorage.getItem(userKey) !== null },
+    isSignedIn: function async() {
+        return localStorage.getItem(userKey) !== null
+    },
 
-    isAdmin : function async () {
-        if(!this.isSignedIn) return false
+    isAdmin: function async() {
+        if (!this.isSignedIn) return false
 
         let admin = false
         if (this.getCurrentUser()!=null) {
             this.getCurrentUser().authorities.forEach(authority => {
                 if (authority.authority === "ROLE_ADMIN") admin = true
             })
-            return admin
         }
+        return admin
     },
 
-    getCurrentUser : function async () { return JSON.parse(localStorage.getItem(userKey)) }
+    getCurrentUser: function async() {
+        return JSON.parse(localStorage.getItem(userKey))
+    }
 }
 
 export default AuthenticationService;
