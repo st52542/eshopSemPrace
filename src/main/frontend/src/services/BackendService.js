@@ -11,7 +11,7 @@ axios.interceptors.request.use(config => {
     return config;
 });
 
-const SERVER_ADDRESS = "http://localhost:8080"
+const SERVER_ADDRESS = process.env.REACT_APP_BASE_URI
 
 class BackendService {
     async getUserBoard() {

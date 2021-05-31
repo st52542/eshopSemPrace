@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const userKey = "user";
-const SERVER_PREFIX = "http://localhost:8080"
+const SERVER_PREFIX = process.env.REACT_APP_BASE_URI
 
 const AuthenticationService = {
     signIn: function (username, password) {
