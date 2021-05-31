@@ -20,7 +20,7 @@ const AdminManageProd = () => {
     }, []);
 
     const onDeleteItem = (itemToDelete) => {
-        BackendService.deleteProdukt(itemToDelete.id).then((resp) => {
+        BackendService.getProduktZmena(itemToDelete.id).then((resp) => {
             const filtered = item.filter(item => item.id !== itemToDelete.id)
             setItems(filtered)
         })
@@ -48,7 +48,7 @@ const AdminManageProd = () => {
                             sleva: {produkt.slevaProcenta}, vyrobce: {produkt.vyrobce && (produkt.vyrobce.nazev)}
                             <Button type="submit" onClick={(e) => {
                                 onDeleteItem(produkt)
-                            }}>smaz produkt</Button>
+                            }}>Zneplatni produkt</Button>
                         </div>
                     )}
                     <Button type="submit" onClick={(event) => {

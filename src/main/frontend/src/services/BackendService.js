@@ -38,8 +38,8 @@ class BackendService {
         return await axios.post(SERVER_ADDRESS + "/produkt/uloz-produkt", produkt);
     }
 
-    async deleteProdukt(id) {
-        return await axios.delete(SERVER_ADDRESS + "/produkt/smaz/" + id);
+    async getProduktZmena(id) {
+        return await axios.get(SERVER_ADDRESS + "/produkt-zmen-stav/" + id);
     }
 
     async changeProdukt(id) {
