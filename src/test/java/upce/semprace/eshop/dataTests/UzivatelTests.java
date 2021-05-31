@@ -1,6 +1,7 @@
 package upce.semprace.eshop.dataTests;
 
 import upce.semprace.eshop.dataFarctory.UzivatelTestDataFactory;
+import upce.semprace.eshop.entity.Produkt;
 import upce.semprace.eshop.entity.Uzivatel;
 import upce.semprace.eshop.repository.UzivatelRepository;
 import org.junit.jupiter.api.Assertions;
@@ -28,17 +29,21 @@ class UzivatelTests {
 
     @Test
     void saveUzivatel() {
+        List<Uzivatel> forRes = uzivatelRepository.findAll();
+        int testValue = forRes.size()+1;
         uzivatelTestDataFactory.addUser1();
         List<Uzivatel> all = uzivatelRepository.findAll();
-        Assertions.assertTrue(all.size() == 1);
+        Assertions.assertTrue(all.size() == testValue);
     }
 
     @Test
     void saveMoreUzivatel() {
+        List<Uzivatel> forRes = uzivatelRepository.findAll();
+        int testValue = forRes.size()+2;
         uzivatelTestDataFactory.addUser1();
         uzivatelTestDataFactory.addUser2();
         List<Uzivatel> all = uzivatelRepository.findAll();
-        Assertions.assertTrue(all.size() == 2);
+        Assertions.assertTrue(all.size() == testValue);
     }
 
 
@@ -52,11 +57,13 @@ class UzivatelTests {
 
     @Test
     void removeUzivatel() {
+        List<Uzivatel> forRes = uzivatelRepository.findAll();
+        int testValue = forRes.size()+1;
         uzivatelTestDataFactory.addUser1();
         uzivatelTestDataFactory.addUser2();
         Uzivatel result = uzivatelRepository.findByEmail("vv@bbb.cz");
         uzivatelRepository.removeUzivatelById(result.getId());
-        Assertions.assertTrue(uzivatelRepository.findAll().size() == 1);
+        Assertions.assertTrue(uzivatelRepository.findAll().size() == testValue);
     }
 
 }

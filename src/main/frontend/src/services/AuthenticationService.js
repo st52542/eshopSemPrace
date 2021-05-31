@@ -29,8 +29,12 @@ const AuthenticationService = {
         if(!this.isSignedIn) return false
 
         let admin = false
-        this.getCurrentUser().authorities.forEach(authority => { if (authority.authority === "ROLE_ADMIN") admin = true })
-        return admin
+        if (this.getCurrentUser()!=null) {
+            this.getCurrentUser().authorities.forEach(authority => {
+                if (authority.authority === "ROLE_ADMIN") admin = true
+            })
+            return admin
+        }
     },
 
     getCurrentUser : function async () { return JSON.parse(localStorage.getItem(userKey)) }

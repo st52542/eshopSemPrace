@@ -15,6 +15,7 @@ function AppNavbar() {
     const signOut = () => {
         AuthenticationService.signOut();
         history.push("/home")
+        window.location.reload();
     }
 
     return (

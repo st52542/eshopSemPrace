@@ -8,9 +8,7 @@ import upce.semprace.eshop.entity.NakoupenaPolozka;
 import upce.semprace.eshop.entity.Nakup;
 import upce.semprace.eshop.repository.NakoupenaPolozkaRepository;
 import upce.semprace.eshop.repository.NakupRepository;
-
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/nakup")

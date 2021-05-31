@@ -51,12 +51,12 @@ class BackendService {
     }
 
     async deleteDoprava(id) {
-        return await axios.delete(SERVER_ADDRESS + "/doprava/smaz/" + id);
+        return await axios.delete(SERVER_ADDRESS + "/doprava/admin/smaz/" + id);
     }
 
     async postNewDoprava(doprava) {
         debugger
-        return await axios.post(SERVER_ADDRESS + "/doprava/uloz-dopravu", doprava);
+        return await axios.post(SERVER_ADDRESS + "/doprava/admin/uloz-dopravu", doprava);
     }
 
     async getVyrobceList() {

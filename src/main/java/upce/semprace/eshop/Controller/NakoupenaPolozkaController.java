@@ -11,7 +11,6 @@ import upce.semprace.eshop.repository.UzivatelRepository;
 import upce.semprace.eshop.security.services.UserPrinciple;
 import upce.semprace.eshop.services.CartService;
 import upce.semprace.eshop.services.KosikPair;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -45,15 +44,15 @@ public class NakoupenaPolozkaController {
 
     @PostMapping("/order/")
     public String order(@RequestBody PridejZmenNakupDto pridejZmenNakupDto) {
-        UserPrinciple principle = null;
+        UserPrinciple principle;
         Optional<Uzivatel> user = null;
         try {
             principle = (UserPrinciple) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             user = uzivatelRepository.findByUsername(principle.getUsername());
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
-        Long idUzivatel = 0L;
+        Long idUzivatel;
         if (user != null && user.isPresent()) {
             idUzivatel = uzivatelRepository.findById(user.get().getId()).get().getId();
         }else{

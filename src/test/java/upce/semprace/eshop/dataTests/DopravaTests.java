@@ -28,20 +28,24 @@ class DopravaTests {
 
     @Test
     void saveDoprava() {
+        List<Doprava> forRes = dopravaRepository.findAll();
+        int testValue = forRes.size()+1;
         dopravaTestDataFactory.saveNewDoprava1();
         List<Doprava> all = dopravaRepository.findAll();
-        Assertions.assertTrue(all.size()==1);
+        Assertions.assertTrue(all.size()==testValue);
     }
 
 
 
     @Test
     void saveMoreDoprava() {
+        List<Doprava> forRes = dopravaRepository.findAll();
+        int testValue = forRes.size()+3;
         dopravaTestDataFactory.saveNewDoprava1();
         dopravaTestDataFactory.saveNewDoprava2();
         dopravaTestDataFactory.saveNewDoprava3();
         List<Doprava> all = dopravaRepository.findAll();
-        Assertions.assertTrue(all.size()==3);
+        Assertions.assertTrue(all.size()==testValue);
     }
 
 
@@ -59,12 +63,14 @@ class DopravaTests {
 
     @Test
     void removeDopravaViaCena() {
+        List<Doprava> forRes = dopravaRepository.findAll();
+        int testValue = forRes.size()+2;
         dopravaTestDataFactory.saveNewDoprava1();
         dopravaTestDataFactory.saveNewDoprava2();
         dopravaTestDataFactory.saveNewDoprava3();
         Doprava result = dopravaRepository.findByCena(109);
         dopravaRepository.removeDopravaById(result.getId());
-        Assertions.assertTrue(dopravaRepository.findAll().size()==2);
+        Assertions.assertTrue(dopravaRepository.findAll().size()==testValue);
     }
 
 }

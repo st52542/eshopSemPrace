@@ -1,7 +1,5 @@
 package upce.semprace.eshop.entity;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.Set;
 

@@ -1,9 +1,5 @@
 package upce.semprace.eshop.entity;
-
-import upce.semprace.eshop.Controller.VyrobceController;
-
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 public class Produkt {
@@ -22,15 +18,6 @@ public class Produkt {
     private boolean vNabidce;
     @Column
     private String cestaKObrazku;
-
-    public NakoupenaPolozka getNakoupenaPolozka() {
-        return nakoupenaPolozka;
-    }
-
-    public void setNakoupenaPolozka(NakoupenaPolozka nakoupenaPolozka) {
-        this.nakoupenaPolozka = nakoupenaPolozka;
-    }
-
     @ManyToOne
     private NakoupenaPolozka nakoupenaPolozka;
     @ManyToOne
@@ -92,12 +79,19 @@ public class Produkt {
         this.cestaKObrazku = cestaKObrazku;
     }
 
-
     public Vyrobce getVyrobce() {
         return vyrobce;
     }
 
     public void setVyrobce(Vyrobce vyrobce) {
         this.vyrobce = vyrobce;
+    }
+
+    public NakoupenaPolozka getNakoupenaPolozka() {
+        return nakoupenaPolozka;
+    }
+
+    public void setNakoupenaPolozka(NakoupenaPolozka nakoupenaPolozka) {
+        this.nakoupenaPolozka = nakoupenaPolozka;
     }
 }

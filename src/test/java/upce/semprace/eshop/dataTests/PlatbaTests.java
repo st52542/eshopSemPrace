@@ -1,6 +1,7 @@
 package upce.semprace.eshop.dataTests;
 
 import upce.semprace.eshop.dataFarctory.PlatbaTestDataFactory;
+import upce.semprace.eshop.entity.Doprava;
 import upce.semprace.eshop.entity.Platba;
 import upce.semprace.eshop.repository.PlatbaRepository;
 import org.junit.jupiter.api.Assertions;
@@ -28,19 +29,23 @@ class PlatbaTests {
 
     @Test
     void savePlatba() {
+        List<Platba> forRes = platbaRepository.findAll();
+        int testValue = forRes.size()+1;
         platbaTestDataFactory.addPlatba1();
         List<Platba> all = platbaRepository.findAll();
-        Assertions.assertTrue(all.size() == 1);
+        Assertions.assertTrue(all.size() == testValue);
     }
 
 
     @Test
     void saveMorePlatba() {
+        List<Platba> forRes = platbaRepository.findAll();
+        int testValue = forRes.size()+3;
         platbaTestDataFactory.addPlatba1();
         platbaTestDataFactory.addPlatba2();
         platbaTestDataFactory.addPlatba3();
         List<Platba> all = platbaRepository.findAll();
-        Assertions.assertTrue(all.size() == 3);
+        Assertions.assertTrue(all.size() == testValue);
     }
 
 
@@ -56,12 +61,14 @@ class PlatbaTests {
 
     @Test
     void removePlatabaViaPrevod() {
+        List<Platba> forRes = platbaRepository.findAll();
+        int testValue = forRes.size()+2;
         platbaTestDataFactory.addPlatba1();
         platbaTestDataFactory.addPlatba2();
         platbaTestDataFactory.addPlatba3();
         Platba result = platbaRepository.findByPrevod(15.0);
         platbaRepository.removePlatbaById(result.getId());
-        Assertions.assertTrue(platbaRepository.findAll().size() == 2);
+        Assertions.assertTrue(platbaRepository.findAll().size() == testValue);
     }
 
 }

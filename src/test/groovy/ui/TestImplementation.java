@@ -1,14 +1,10 @@
-package upce.semprace.eshop.ui;
+package ui;
 
-import org.hamcrest.Matcher;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-
-import static org.hamcrest.CoreMatchers.containsString;
 
 public class TestImplementation {
     private WebDriver driver;

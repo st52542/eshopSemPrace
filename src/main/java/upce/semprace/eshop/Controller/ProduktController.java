@@ -12,7 +12,6 @@ import upce.semprace.eshop.entity.Produkt;
 import upce.semprace.eshop.repository.ProduktRepository;
 import upce.semprace.eshop.repository.ProduktRepositoryPaging;
 import upce.semprace.eshop.repository.VyrobceRepository;
-
 import java.util.List;
 
 @RestController
@@ -27,9 +26,6 @@ public class ProduktController {
 
     @Autowired
     VyrobceRepository vyrobceRepository;
-
-    int actualPageMin=0;
-    int actualPageMax=5;
 
     @ExceptionHandler(RuntimeException.class)
     public String ochranaChyb() {

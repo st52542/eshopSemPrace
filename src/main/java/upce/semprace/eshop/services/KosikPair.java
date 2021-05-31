@@ -1,5 +1,4 @@
 package upce.semprace.eshop.services;
-
 import upce.semprace.eshop.entity.Produkt;
 
 public class KosikPair {

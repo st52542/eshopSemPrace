@@ -21,7 +21,6 @@ const Products = () => {
             .then((resp) => {
                 setItemDoprava(resp.data)
                 orderSpec.doprava =resp.data[0].id
-                console.log(itemDoprava)
             }, (error) => {
                 console.log(error.toString())
             })
@@ -29,7 +28,6 @@ const Products = () => {
             .then((resp) => {
                 setItemPlatba(resp.data)
                 orderSpec.platba =resp.data[0].id
-                console.log(itemPlatba)
             }, (error) => {
                 console.log(error.toString())
             })
@@ -39,13 +37,11 @@ const Products = () => {
             }, (error) => {
                 console.log(error.toString())
             })
-    }, []);
+    }, [orderSpec]);
 
     const onAccept = () => {
-        console.log(orderSpec)
         BackendService.postCartOrderItem(orderSpec)
             .then((resp) => {
-                console.log(resp)
                 history.push("/")
             }, (error) => {
                 console.log(error.toString())
@@ -87,7 +83,7 @@ const Products = () => {
                     <select onChange={(event) => {
                         changeValuesDoprava(event)
                     }}>
-                        {itemDoprava.map(item => (
+                        {itemDoprava && itemDoprava.length > 0 && itemDoprava.map(item => (
                             <option key={item.id}
                                     value={item.id}
                             >
@@ -98,7 +94,7 @@ const Products = () => {
                     <select onChange={(event) => {
                         changeValuesPlatba(event)
                     }}>
-                        {itemPlatba.map(item => (
+                        {itemPlatba && itemPlatba.length > 0 && itemPlatba.map(item => (
                             <option key={item.id}
                                     value={item.id}
                             >

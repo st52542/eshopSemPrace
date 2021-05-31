@@ -1,7 +1,5 @@
 package upce.semprace.eshop.services;
-
 import java.util.List;
-import java.util.Map;
 
 public interface CartService {
     void add(Long id);
@@ -11,5 +9,6 @@ public interface CartService {
     void order(Long idUzivatel, Long idDoprava, Long idPlatba);
 
     List<KosikPair> getCart();
+
     List<KosikPair> getCartMore();
 }

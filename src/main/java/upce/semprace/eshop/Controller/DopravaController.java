@@ -1,12 +1,10 @@
 package upce.semprace.eshop.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import upce.semprace.eshop.dto.PridejZmenDopravaDto;
 import upce.semprace.eshop.entity.Doprava;
-import upce.semprace.eshop.entity.Produkt;
 import upce.semprace.eshop.repository.DopravaRepository;
 
 import java.util.List;
@@ -50,7 +48,7 @@ public class DopravaController {
         return "doprava-reg-form";
     }
 
-    @PostMapping("/uloz-dopravu")
+    @PostMapping("/admin/uloz-dopravu")
     public String zpracujDopravu(@RequestBody PridejZmenDopravaDto pridejZmenDopravaDto) {
         Doprava doprava = new Doprava();
         doprava.setId(pridejZmenDopravaDto.getId());
@@ -59,7 +57,7 @@ public class DopravaController {
         dopravaRepository.save(doprava);
         return "redirect:/doprava";
     }
-    @DeleteMapping("/smaz/{id}")
+    @DeleteMapping("/admin/smaz/{id}")
     public String smazDopravu(@PathVariable(required = false) Long id, Model model){
         dopravaRepository.deleteById(id);
         return "/";

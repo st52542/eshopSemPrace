@@ -1,15 +1,10 @@
 package upce.semprace.eshop.Controller;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import upce.semprace.eshop.dto.PridejZmenPlatbaDto;
-import upce.semprace.eshop.entity.Doprava;
 import upce.semprace.eshop.entity.Platba;
 import upce.semprace.eshop.repository.PlatbaRepository;
-
 import java.util.List;
 
 @RestController

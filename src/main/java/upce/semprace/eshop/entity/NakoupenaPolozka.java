@@ -1,7 +1,6 @@
 package upce.semprace.eshop.entity;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 public class NakoupenaPolozka {

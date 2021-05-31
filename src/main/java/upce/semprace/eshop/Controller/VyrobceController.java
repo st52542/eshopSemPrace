@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import upce.semprace.eshop.dto.PridejZmenVyrobceDto;
-import upce.semprace.eshop.entity.Doprava;
 import upce.semprace.eshop.entity.Vyrobce;
 import upce.semprace.eshop.repository.VyrobceRepository;
 

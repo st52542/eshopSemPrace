@@ -5,12 +5,29 @@ Jednoduchý eshop vytvořený za účelem získání zápočtu z přemětu NNPIA
 ## Použité technologie
 
 * Java Spring boot
-    *
-    
-* React
-    *
-    
+* React    
 * Marian DB
+* Potřebné závisloti a pluginy:<br/>
+    *org.springframework.boot<br/>
+    *org.springframework.security<br/>
+    *javax.validation<br/>
+    *org.springframework.boot<br/>
+    *mysql<br/>
+    *junit<br/>
+    *org.codehaus.groovy<br/>
+    *commons-beanutils<br/>
+    *org.codehaus.mojo<br/>
+    *org.apache.commons<br/>
+    *io.jsonwebtoken<br/>
+    *org.hibernate<br/>
+    *org.seleniumhq.selenium<br/>
+    *com.vaadin.external.google<br/>
+    *maven-resources-plugin<br/>
+
+Změny v pracovních adresářích
+* ${project.basedir}/src/main/frontend
+* ${basedir}/src/main/resources/static
+* ${basedir}/src/main/frontend/build
 
 ## Technické požadavky
 Pro vývoj bylo použito vývojové prostředí IntelliJ IDEA a Xampp. Funkčnost při použití jiných technologií nejde zaručit.
@@ -41,34 +58,32 @@ Na tuto adresu přejděte ve Svém prohlížeči.
 
 API backendu aplikace je dostupné na adrese [http://localhost:8080](http://localhost:8080).
 
+## Databázový model
+![model](dokumentace/databazovyModel.png)
+
+## Základní popsání API
+
+Základní adresy API jsou tyto:
+
+* /api/
+* /static/
+* /signup/
+* /home/
+* /produkt/
+* /doprava/
+* /vyrobce/
+* /platba/
+* /cart/
+* /nakup/
+
+Význami API jsou samovysvětlující. Každé API má poté podrobnější
+adresy a pro něj jsou nastaveny různé autentizační požadavky.
+
+## Nasazená aplikace
+
+Aplikace je nasazena na webu heroku a ****. Pro frontend je použit web **** a 
+pro backend je použito heroku.
+
+Web je dotstupný na adrese: [***]()
+
 pokracovani priste a take kontrola
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

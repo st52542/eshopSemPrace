@@ -1,13 +1,10 @@
 package upce.semprace.eshop.repository;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.Query;
 import upce.semprace.eshop.entity.Nakup;
-import upce.semprace.eshop.entity.Produkt;
-
 import java.util.List;
 
 public interface NakupRepository extends JpaRepository<Nakup,Long> {

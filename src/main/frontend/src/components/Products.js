@@ -3,7 +3,6 @@ import AppNavbar from './AppNavbar';
 import {Alert, Button, Container} from "react-bootstrap";
 import '../App.css';
 import BackendService from "../services/BackendService";
-import data from "bootstrap/js/src/dom/data";
 
 const Products = () => {
     const [item, setItems] = useState([]);

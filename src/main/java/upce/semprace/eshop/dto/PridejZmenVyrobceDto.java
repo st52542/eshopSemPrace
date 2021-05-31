@@ -1,7 +1,5 @@
 package upce.semprace.eshop.dto;
 
-import javax.persistence.Column;
-
 public class PridejZmenVyrobceDto {
     private Long id;
     private String nazev;

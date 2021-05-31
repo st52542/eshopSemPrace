@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import upce.semprace.eshop.dataFarctory.ProduktTestDataFactory;
+import upce.semprace.eshop.entity.Platba;
 import upce.semprace.eshop.entity.Produkt;
 import upce.semprace.eshop.repository.ProduktRepository;
 
@@ -25,19 +26,23 @@ public class ProduktTests {
 
     @Test
     void saveProdukt() {
+        List<Produkt> forRes = produktRepository.findAll();
+        int testValue = forRes.size()+1;
         produktTestDataFactory.addProdukt1();
         List<Produkt> all = produktRepository.findAll();
-        Assertions.assertTrue(all.size() == 1);
+        Assertions.assertTrue(all.size() == testValue);
     }
 
 
     @Test
     void saveMoreDoprava() {
+        List<Produkt> forRes = produktRepository.findAll();
+        int testValue = forRes.size()+3;
         produktTestDataFactory.addProdukt1();
         produktTestDataFactory.addProdukt2();
         produktTestDataFactory.addProdukt3();
         List<Produkt> all = produktRepository.findAll();
-        Assertions.assertTrue(all.size() == 3);
+        Assertions.assertTrue(all.size() == testValue);
     }
 
 
@@ -53,11 +58,13 @@ public class ProduktTests {
 
     @Test
     void removeDopravaViaNazev() {
+        List<Produkt> forRes = produktRepository.findAll();
+        int testValue = forRes.size()+2;
         produktTestDataFactory.addProdukt1();
         produktTestDataFactory.addProdukt2();
         produktTestDataFactory.addProdukt3();
         Produkt result = produktRepository.findByNazev("produkt2");
         produktRepository.removeProduktById(result.getId());
-        Assertions.assertTrue(produktRepository.findAll().size() == 2);
+        Assertions.assertTrue(produktRepository.findAll().size() == testValue);
     }
 }

@@ -1,8 +1,7 @@
-import React, {Component, useState} from "react";
+import React, {useState} from "react";
 import AppNavbar from './AppNavbar';
 import {Button, Form, Input} from "reactstrap";
 import BackendService from "../services/BackendService";
-import {Container} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
 
 const AddVyrobce = () => {

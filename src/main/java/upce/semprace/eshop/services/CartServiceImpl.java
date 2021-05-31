@@ -1,5 +1,4 @@
 package upce.semprace.eshop.services;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,7 +6,6 @@ import upce.semprace.eshop.entity.NakoupenaPolozka;
 import upce.semprace.eshop.entity.Nakup;
 import upce.semprace.eshop.entity.Produkt;
 import upce.semprace.eshop.repository.*;
-
 import java.util.*;
 
 @Service

@@ -1,7 +1,5 @@
 package upce.semprace.eshop.message.response;
-
 import java.util.Collection;
-
 import org.springframework.security.core.GrantedAuthority;
 
 public class JwtResponse {

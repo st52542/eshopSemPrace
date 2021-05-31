@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import upce.semprace.eshop.dataFarctory.VyrobceTestDataTest;
+import upce.semprace.eshop.entity.Uzivatel;
 import upce.semprace.eshop.entity.Vyrobce;
 import upce.semprace.eshop.repository.VyrobceRepository;
 
@@ -24,19 +25,23 @@ public class VyrobceTests {
 
     @Test
     void saveVyrobce() {
+        List<Vyrobce> forRes = vyrobceRepository.findAll();
+        int testValue = forRes.size()+1;
         vyrobceTestDataTest.addVyrobce1();
         List<Vyrobce> all = vyrobceRepository.findAll();
-        Assertions.assertTrue(all.size() == 1);
+        Assertions.assertTrue(all.size() == testValue);
     }
 
 
     @Test
     void saveMoreVyrobce() {
+        List<Vyrobce> forRes = vyrobceRepository.findAll();
+        int testValue = forRes.size()+3;
         vyrobceTestDataTest.addVyrobce1();
         vyrobceTestDataTest.addVyrobce2();
         vyrobceTestDataTest.addVyrobce3();
         List<Vyrobce> all = vyrobceRepository.findAll();
-        Assertions.assertTrue(all.size() == 3);
+        Assertions.assertTrue(all.size() == testValue);
     }
 
 
@@ -52,11 +57,13 @@ public class VyrobceTests {
 
     @Test
     void removeVyrobceViaNazev() {
+        List<Vyrobce> forRes = vyrobceRepository.findAll();
+        int testValue = forRes.size()+2;
         vyrobceTestDataTest.addVyrobce1();
         vyrobceTestDataTest.addVyrobce2();
         vyrobceTestDataTest.addVyrobce3();
         Vyrobce result = vyrobceRepository.findByNazev("vyrobce2");
         vyrobceRepository.removeVyrobceById(result.getId());
-        Assertions.assertTrue(vyrobceRepository.findAll().size() == 2);
+        Assertions.assertTrue(vyrobceRepository.findAll().size() == testValue);
     }
 }

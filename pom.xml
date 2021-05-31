@@ -23,10 +23,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
@@ -73,8 +69,8 @@
         </dependency>
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all-tests</artifactId>
-            <version>2.0.0-rc-3</version>
+            <artifactId>groovy-all</artifactId>
+            <version>2.3.11</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -116,9 +112,7 @@
             <version>0.0.20131108.vaadin1</version>
             <scope>compile</scope>
         </dependency>
-
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -182,5 +176,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import AppNavbar from './AppNavbar';
-import {Alert, Button, Container} from "react-bootstrap";
+import {Alert, Container} from "react-bootstrap";
 import '../App.css';
 import BackendService from "../services/BackendService";
-import {useHistory, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 
 const DetailNakup = () => {
     const [item, setItems] = useState([]);
@@ -23,7 +23,7 @@ const DetailNakup = () => {
             }, (error) => {
                 console.log(error.toString())
             })
-        }, []);
+        }, [id]);
 
 
     return (
