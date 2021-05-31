@@ -39,7 +39,7 @@ const AddDoprava = () => {
                     <Input placeholder="cena" name='cena' onChange={(event) => {
                         changeValue(event)
                     }}/>
-                    <Button type="submit">Přidat</Button>
+                    <Button name="submitButton" id="submitButton" type="submit">Přidat</Button>
                 </Form>
             </div>
         </div>

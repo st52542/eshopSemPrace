@@ -1,9 +1,12 @@
 package ui
 
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.springframework.security.crypto.password.PasswordEncoder
+import upce.semprace.eshop.entity.Uzivatel
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -35,6 +38,9 @@ class LoginTest {
     UzivatelRepository uzivatelRepository;
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     Creator creator;
 
     @BeforeAll
@@ -51,7 +57,7 @@ class LoginTest {
         }
 
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setHeadless(true);
+        chromeOptions.setHeadless(false);
 
         driver = new ChromeDriver(chromeOptions);
 
@@ -68,15 +74,42 @@ class LoginTest {
     }
 
     @Test
-    public void userLogin() {
+    public void successfulUserLogin() {
+        String pass = passwordEncoder.encode("rootroot");
+        creator.saveEntity(new Uzivatel(username: "rootroot",heslo: pass))
         driver.get("http://localhost:" + port + "/#/signin");
         driver.findElement(By.name("username")).sendKeys("rootroot");
         driver.findElement(By.name("password")).sendKeys("rootroot");
         driver.findElement(By.name("submitButton")).click();
-
         WebDriverWait wt = new WebDriverWait(driver, 7);
         wt.until(ExpectedConditions.urlContains("#/home"));
         assertTrue(localStorage.keySet().contains("user"));
     }
 
+    @Test
+    public void unsuccessfulUserLogin() {
+        String pass = passwordEncoder.encode("spatneHeslo");
+        creator.saveEntity(new Uzivatel(username: "rootroot",heslo: pass))
+        driver.get("http://localhost:" + port + "/#/signin");
+        driver.findElement(By.name("username")).sendKeys("rootroot");
+        driver.findElement(By.name("password")).sendKeys("rootroot");
+        driver.findElement(By.name("submitButton")).click();
+        assertFalse(localStorage.keySet().contains("user"));
+    }
+
+    @Test
+    public void registerDopravas() {
+        String pass = passwordEncoder.encode("rootroot");
+        creator.saveEntity(new Uzivatel(username: "rootroot",heslo: pass))
+        driver.get("http://localhost:" + port + "/#/signin");
+        driver.findElement(By.name("username")).sendKeys("rootroot");
+        driver.findElement(By.name("password")).sendKeys("rootroot");
+        driver.findElement(By.name("submitButton")).click();
+        driver.get("http://localhost:" + port + "/#/doprava/AddDoprava");
+        driver.findElement(By.name("popis")).sendKeys("testDoprava");
+        driver.findElement(By.name("cena")).sendKeys("666");
+        driver.findElement(By.name("submitButton")).click();
+        Assertions.assertEquals(1, driver.findElements(By.xpath("//h2[text()='Zde je seznam vsech doprav']")).size());
+
+    }
 }

@@ -32,9 +32,8 @@ Změny v pracovních adresářích
 ## Technické požadavky
 Pro vývoj bylo použito vývojové prostředí IntelliJ IDEA a Xampp. Funkčnost při použití jiných technologií nejde zaručit.
 
-Pro funkčnost aplikace je pro první spuštění přidán script. Tento script vloží data do databáze.
-Jsou zde data pro role. Role jsou tyto: uzivatel, správce a administrator. Dále je přidán uživatel
-s administrátorskými právy.
+Pro funkčnost aplikace je potřeba nejprve spustit SQL dotazy,
+které jsou uloženy v [data.sql](src/main/resources/data.sql).
 
 Přihlašovací údaje výchozího administratora
 

@@ -51,7 +51,7 @@ const AdminManageDop =()=> {
                                 }}>smaz dopravy</Button>
                             </div>
                         )}
-                        <Button type="submit" onClick={(event) => {
+                        <Button name="submitButton" id="submitButton" type="submit" onClick={(event) => {
                             onAddItem()
                         }}>pridej novou dopravy</Button>
                     </div>
