@@ -1,18 +1,22 @@
 package upce.semprace.eshop.Controller;
 
 
+import org.hibernate.annotations.BatchSize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import upce.semprace.eshop.entity.NakoupenaPolozka;
 import upce.semprace.eshop.entity.Nakup;
 import upce.semprace.eshop.repository.NakoupenaPolozkaRepository;
 import upce.semprace.eshop.repository.NakupRepository;
+
+import javax.persistence.ManyToMany;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/nakup")
-@CrossOrigin("http://localhost:3000")
 public class NakupController {
     @Autowired
     NakupRepository nakupRepository;
@@ -27,6 +31,13 @@ public class NakupController {
     @GetMapping(value = {"","/"})
     public List<Nakup> getNakupy(Model model) {
         return nakupRepository.findAdmin();
+    }
+
+    @GetMapping(value = {"/aaa"})
+    @ResponseBody
+    public Nakup getNakupys(Model model) {
+        Optional<Nakup> all = nakupRepository.findById(11L);
+        return all.get();
     }
 
     @GetMapping("/nakup-detail/{id}")
