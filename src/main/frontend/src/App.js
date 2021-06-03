@@ -17,10 +17,12 @@ import AddPlatba from "./components/AddPlatba";
 import AdminNakup from "./components/AdminNakup";
 import DetailNakup from "./components/DetailNakup";
 import Cart from "./components/Cart";
+import AppNavbar from "./components/AppNavbar";
 
 function App() {
     return (
         <HashRouter>
+            <AppNavbar/>
             <Switch>
                 <Route path='/' exact={true} component={Home}/>
                 <Route path='/home' exact={true} component={Home}/>

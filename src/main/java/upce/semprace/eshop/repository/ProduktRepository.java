@@ -16,21 +16,4 @@ public interface ProduktRepository extends JpaRepository<Produkt, Long> {
 
     @Query(value = "SELECT * FROM Produkt pr WHERE pr.v_nabidce = true ORDER BY pr.sleva_procenta DESC LIMIT 3", nativeQuery = true)
     List<Produkt> findTop();
-
-    @Query(value = "SELECT * FROM Produkt pr WHERE pr.v_nabidce = true ORDER BY pr.cena ASC", nativeQuery = true)
-    List<Produkt> findACS();
-
-    @Query(value = "SELECT * FROM Produkt pr WHERE pr.v_nabidce = true ORDER BY pr.cena DESC", nativeQuery = true)
-    List<Produkt> findDESC();
-
-    @Query(value = "SELECT * FROM Produkt pr WHERE pr.v_nabidce = true AND pr.cena BETWEEN 1 AND 20 ORDER BY pr.cena ASC", nativeQuery = true)
-    List<Produkt> findOneToTwenty();
-
-    @Query(value = "SELECT * FROM Produkt pr WHERE pr.v_nabidce = true AND pr.cena BETWEEN 21 AND 60 ORDER BY pr.cena ASC", nativeQuery = true)
-    List<Produkt> findTwentyOneToSixty();
-
-    @Query(value = "SELECT * FROM Produkt pr WHERE pr.v_nabidce = true AND pr.cena > 60 ORDER BY pr.cena ASC", nativeQuery = true)
-    List<Produkt> findSixtyOneToMax();
-
-
 }

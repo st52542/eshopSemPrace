@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import AppNavbar from './AppNavbar';
 import {Button, Form, Input} from "reactstrap";
 import BackendService from "../services/BackendService";
 import {useHistory} from "react-router-dom";
@@ -47,7 +46,6 @@ const AddProduct = () => {
 
     return (
         <div>
-            <AppNavbar/>
             <div style={{
                 marginTop: "20px"
             }

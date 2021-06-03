@@ -1,4 +1,3 @@
-import AppNavbar from './AppNavbar';
 import {Alert, Button, Container} from "react-bootstrap";
 import '../App.css';
 import BackendService from "../services/BackendService";
@@ -24,7 +23,6 @@ const Home = () => {
 
     return (
         <div>
-            <AppNavbar/>
             <Container fluid>
                 <div style={{
                     marginTop: "20px"

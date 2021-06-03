@@ -3,7 +3,6 @@ import {Button, Col, Container, Form, FormGroup, Row} from 'react-bootstrap'
 import {Input, Label} from "reactstrap"
 import {Alert} from "react-bootstrap"
 import Authentication from '../services/AuthenticationService'
-import AppNavbar from "./AppNavbar";
 
 function SingUp() {
     const [user, setUser] = useState({username: undefined, password: undefined, email: undefined})
@@ -26,7 +25,6 @@ function SingUp() {
 
     return (
         <div>
-            <AppNavbar/>
             <Container fluid>
                 <Row><Col><h1>Registrace uzivatele</h1></Col></Row>
                 <Row><Col>{message && <Alert variant={'success'}>{message}</Alert>}</Col></Row>
@@ -67,7 +65,7 @@ function SingUp() {
                                        changeValueHandler(e.target.name, e.target.value)
                                    }}/>
                         </FormGroup>
-                        <Button style={{"margin-top": "1em"}} variant="primary" type="submit">Registruj</Button>
+                        <Button style={{"margin-top": "1em"}} variant="primary" type="submit" name="submitButton" id="submitButton">Registruj</Button>
                     </Form>
                 </Col></Row>
             </Container>

@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory} from "react-router-dom"
-import AppNavbar from './AppNavbar';
 import {Alert, Button, Container} from "react-bootstrap";
 import '../App.css';
 import BackendService from "../services/BackendService";
@@ -32,7 +31,6 @@ const AdminManageProd = () => {
 
     return (
         <div>
-            <AppNavbar/>
             <Container fluid>
                 <div style={{
                     marginTop: "20px"

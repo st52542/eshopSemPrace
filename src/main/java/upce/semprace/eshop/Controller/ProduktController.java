@@ -10,7 +10,6 @@ import upce.semprace.eshop.dto.PridejZmenProduktDto;
 import upce.semprace.eshop.dto.StrankaProduktDto;
 import upce.semprace.eshop.entity.Produkt;
 import upce.semprace.eshop.repository.ProduktRepository;
-import upce.semprace.eshop.repository.ProduktRepositoryPaging;
 import upce.semprace.eshop.repository.VyrobceRepository;
 import java.util.List;
 
@@ -20,9 +19,6 @@ import java.util.List;
 public class ProduktController {
     @Autowired
     ProduktRepository produktRepository;
-
-    @Autowired
-    ProduktRepositoryPaging produktRepositoryPaging;
 
     @Autowired
     VyrobceRepository vyrobceRepository;
@@ -92,36 +88,5 @@ public class ProduktController {
     @GetMapping(value = {"", "/"})
     public List<Produkt> getTopProducts() {
         return produktRepository.findTop();
-    }
-
-    @GetMapping(value = {"/productASC"})
-    public List<Produkt> getProductsASC() {
-        return produktRepository.findACS();
-    }
-
-    @GetMapping(value = {"/productDESC"})
-    public List<Produkt> getProductsDESC() {
-        return produktRepository.findDESC();
-    }
-
-    @GetMapping(value = {"/productLow"})
-    public List<Produkt> getProductsLow() {
-        return produktRepository.findOneToTwenty();
-    }
-
-    @GetMapping(value = {"/productMiddle"})
-    public List<Produkt> getProductsMiddle() {
-        return produktRepository.findTwentyOneToSixty();
-    }
-
-    @GetMapping(value = {"/productHigh"})
-    public List<Produkt> getProductsHigh() {
-        return produktRepository.findSixtyOneToMax();
-    }
-
-    @PostMapping(value = {"/product/page"})
-    public Page<Produkt> getProductsPaging(@RequestBody StrankaProduktDto strankaProduktDto) {
-        Pageable secondPageWithFiveElements = PageRequest.of(strankaProduktDto.getMin(), strankaProduktDto.getMax());
-        return produktRepositoryPaging.findAll(secondPageWithFiveElements);
     }
 }

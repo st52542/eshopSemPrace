@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import {Alert, Container} from 'reactstrap'
 
 import AuthenticationService from '../services/AuthenticationService'
-import AppNavbar from "./AppNavbar";
 
 function Profile() {
     const [user, setUser] = useState(undefined)
@@ -34,7 +33,6 @@ function Profile() {
 
     return (
         <div>
-            <AppNavbar/>
             <Container fluid>
                 {userInfo}
             </Container>

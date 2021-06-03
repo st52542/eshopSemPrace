@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import AppNavbar from './AppNavbar';
 import {Alert, Button, Container} from "react-bootstrap";
 import '../App.css';
 import BackendService from "../services/BackendService";
@@ -36,7 +35,6 @@ const AdminNakup = () => {
 
     return (
         <div>
-            <AppNavbar/>
             <Container fluid>
                 <div style={{
                     marginTop: "20px"

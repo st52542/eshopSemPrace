@@ -1,6 +1,7 @@
 package upce.semprace.eshop.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import upce.semprace.eshop.dto.PridejZmenDopravaDto;
@@ -49,6 +50,7 @@ public class DopravaController {
     }
 
     @PostMapping("/admin/uloz-dopravu")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String zpracujDopravu(@RequestBody PridejZmenDopravaDto pridejZmenDopravaDto) {
         Doprava doprava = new Doprava();
         doprava.setId(pridejZmenDopravaDto.getId());

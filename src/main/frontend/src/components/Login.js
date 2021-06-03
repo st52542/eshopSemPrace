@@ -5,7 +5,6 @@ import {Form, FormGroup} from "react-bootstrap"
 import AuthenticationService from '../services/AuthenticationService'
 import '../App.css';
 import {Input, Label} from "reactstrap";
-import AppNavbar from "./AppNavbar";
 
 function SingUp() {
     const [username, setUsername] = useState("")
@@ -34,7 +33,6 @@ function SingUp() {
 
     return (
         <div>
-            <AppNavbar/>
             <Form onSubmit={doLogin}>
                 <FormGroup>
                     <Label for="username">uzivatelske jmeno</Label>

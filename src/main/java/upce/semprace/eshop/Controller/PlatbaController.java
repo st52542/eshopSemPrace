@@ -1,5 +1,6 @@
 package upce.semprace.eshop.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import upce.semprace.eshop.dto.PridejZmenPlatbaDto;
@@ -46,6 +47,7 @@ public class PlatbaController {
         return "platba-reg-form";
     }
 
+
     @PostMapping("/uloz-platbu")
     public String zpracujPlatbu(@RequestBody PridejZmenPlatbaDto pridejZmenPlatbaDto) {
         Platba platba = new Platba();
@@ -56,6 +58,7 @@ public class PlatbaController {
         return "redirect:/platba";
     }
     @DeleteMapping("/smaz/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String smazDopravu(@PathVariable(required = false) Long id, Model model){
         platbaRepository.deleteById(id);
         return "/";
