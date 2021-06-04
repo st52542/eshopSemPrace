@@ -3,6 +3,13 @@ import {Alert, Button, Container} from "react-bootstrap";
 import '../App.css';
 import BackendService from "../services/BackendService";
 import {useHistory} from "react-router-dom";
+import paginationFactory, {
+    PaginationListStandalone,
+    PaginationProvider,
+    PaginationTotalStandalone,
+    SizePerPageDropdownStandalone
+} from "react-bootstrap-table2-paginator";
+import BootstrapTable from "react-bootstrap-table-next";
 
 const AdminManageVyrob =()=> {
 
@@ -29,6 +36,30 @@ const AdminManageVyrob =()=> {
     const onAddItem = () => {
         history.push("/vyrobce/AddVyrobce")
     }
+    const actionsFormatter = (cell, row) =>
+        <Button type="submit" onClick={(event) => {
+            onDeleteItem(row)
+        }}>Odeber vyrobce</Button>
+
+    const paginationOption = {
+        custom: true,
+        totalSize: item.length
+    };
+
+    const columns = [{
+        dataField: 'nazev',
+        text: 'jmeno vyrobce',
+        sort: true
+    }, {
+        dataField: 'adresa',
+        text: 'adresa vyrobce',
+    }, {
+        dataField: 'akce',
+        text: 'prace s vyrobci',
+        isDummyField: true,
+        csvExport: false,
+        formatter: actionsFormatter
+    }];
 
         return (
             <div>
@@ -40,15 +71,34 @@ const AdminManageVyrob =()=> {
                         <Alert variant="primary">
                             <h2>Zde je seznam vsech vyrobcu</h2>
                         </Alert>
-                        {item && item.length > 0 && item.map(vyrobce =>
-                            <div key={vyrobce.id}>
-                                jmeno vyrobce: {vyrobce.nazev},
-                                adresa vyrobce: {vyrobce.adresa}
-                                <Button type="submit" onClick={(event) => {
-                                    onDeleteItem(vyrobce)
-                                }}>smaz vyrobce</Button>
-                            </div>
-                        )}
+                        {item && <PaginationProvider
+                            pagination={paginationFactory(paginationOption)}
+                        >
+                            {
+                                ({
+                                     paginationProps,
+                                     paginationTableProps
+                                 }) => (
+                                    <div>
+                                        <SizePerPageDropdownStandalone
+                                            {...paginationProps}
+                                        />
+                                        <PaginationTotalStandalone
+                                            {...paginationProps}
+                                        />
+                                        <BootstrapTable
+                                            keyField="id"
+                                            data={item}
+                                            columns={columns}
+                                            {...paginationTableProps}
+                                        />
+                                        <PaginationListStandalone
+                                            {...paginationProps}
+                                        />
+                                    </div>
+                                )
+                            }
+                        </PaginationProvider>}
                         <Button type="submit" onClick={(event) => {
                             onAddItem()
                         }}>pridej novy vyrobce</Button>

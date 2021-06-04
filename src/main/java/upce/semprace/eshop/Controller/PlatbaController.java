@@ -20,35 +20,8 @@ public class PlatbaController {
         return "chyba";
     }
 
-    @GetMapping("/platba-detail/{id}")
-    public String zobrazDetailyPlatby(@PathVariable(required = false) Long id, Model model) {
-        model.addAttribute("platba", platbaRepository.findById(id).get());
-        return "platba-detail";
-    }
-
-    @GetMapping("/platba")
-    public String zobrazVsechnyPlatby(Model model) {
-        model.addAttribute("platbaList", platbaRepository.findAll());
-        return "platba-list";
-    }
-
-    @GetMapping(value = {"/platba-reg-form", "/platba-reg-form/{id}"})
-    public String zobrazPlatbu(@PathVariable(required = false) Long id, Model model) {
-        if (id != null) {
-            Platba byId = platbaRepository.findById(id).orElse(new Platba());
-            PridejZmenPlatbaDto dto = new PridejZmenPlatbaDto();
-            dto.setId(byId.getId());
-            dto.setPopis(byId.getPopis());
-            dto.setPrevod(byId.getPrevod());
-            model.addAttribute("platba", byId);
-        } else {
-            model.addAttribute("platba", new PridejZmenPlatbaDto());
-        }
-        return "platba-reg-form";
-    }
-
-
-    @PostMapping("/uloz-platbu")
+    @PostMapping(value = {"","/"})
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String zpracujPlatbu(@RequestBody PridejZmenPlatbaDto pridejZmenPlatbaDto) {
         Platba platba = new Platba();
         platba.setId(pridejZmenPlatbaDto.getId());
@@ -57,7 +30,7 @@ public class PlatbaController {
         platbaRepository.save(platba);
         return "redirect:/platba";
     }
-    @DeleteMapping("/smaz/{id}")
+    @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String smazDopravu(@PathVariable(required = false) Long id, Model model){
         platbaRepository.deleteById(id);

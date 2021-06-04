@@ -1,6 +1,7 @@
 package upce.semprace.eshop.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import upce.semprace.eshop.dto.PridejZmenVyrobceDto;
@@ -21,34 +22,8 @@ public class VyrobceController {
         return "chyba";
     }
 
-    @GetMapping("/vyrobce-detail/{id}")
-    public String zobrazDetailyVyrobce(@PathVariable(required = false) Long id, Model model) {
-        model.addAttribute("vyrobce", vyrobceRepository.findById(id).get());
-        return "vyrobce-detail";
-    }
-
-    @GetMapping("/vyrobce")
-    public String zobrazVsechnyVyrobce(Model model) {
-        model.addAttribute("vyrobceList", vyrobceRepository.findAll());
-        return "vyrobce-list";
-    }
-
-    @GetMapping(value = {"/vyrobce-reg-form", "/vyrobce-reg-form/{id}"})
-    public String zobrazVyrobce(@PathVariable(required = false) Long id, Model model) {
-        if (id != null) {
-            Vyrobce byId = vyrobceRepository.findById(id).orElse(new Vyrobce());
-            PridejZmenVyrobceDto dto = new PridejZmenVyrobceDto();
-            dto.setId(byId.getId());
-            dto.setNazev(byId.getNazev());
-            dto.setAdresa(byId.getAdresa());
-            model.addAttribute("vyrobce", byId);
-        } else {
-            model.addAttribute("vyrobce", new PridejZmenVyrobceDto());
-        }
-        return "vyrobce-reg-form";
-    }
-
-    @PostMapping("/uloz-vyrobce")
+    @PostMapping(value = {"","/"})
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String zpracujVyrobce(@RequestBody PridejZmenVyrobceDto pridejZmenVyrobceDto) {
         Vyrobce vyrobce = new Vyrobce();
         vyrobce.setId(pridejZmenVyrobceDto.getId());
@@ -57,7 +32,8 @@ public class VyrobceController {
         vyrobceRepository.save(vyrobce);
         return "redirect:/vyrobce";
     }
-    @DeleteMapping("/smaz/{id}")
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String smazDopravu(@PathVariable(required = false) Long id, Model model){
         vyrobceRepository.deleteById(id);
         return "/";

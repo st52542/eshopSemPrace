@@ -22,34 +22,7 @@ public class DopravaController {
         return "chyba";
     }
 
-    @GetMapping("/doprava-detail/{id}")
-    public String zobrazDetailyDopravy(@PathVariable(required = false) Long id, Model model) {
-        model.addAttribute("doprava", dopravaRepository.findById(id).get());
-        return "doprava-detail";
-    }
-
-    @GetMapping("/doprava")
-    public String zobrazVsechnuDopravu(Model model) {
-        model.addAttribute("dopravaList", dopravaRepository.findAll());
-        return "doprava-list";
-    }
-
-    @GetMapping(value = {"/doprava-reg-form", "/doprava-reg-form/{id}"})
-    public String zobrazDopravu(@PathVariable(required = false) Long id, Model model) {
-        if (id != null) {
-            Doprava byId = dopravaRepository.findById(id).orElse(new Doprava());
-            PridejZmenDopravaDto dto = new PridejZmenDopravaDto();
-            dto.setId(byId.getId());
-            dto.setPopis(byId.getPopis());
-            dto.setCena(byId.getCena());
-            model.addAttribute("doprava", byId);
-        } else {
-            model.addAttribute("doprava", new PridejZmenDopravaDto());
-        }
-        return "doprava-reg-form";
-    }
-
-    @PostMapping("/admin/uloz-dopravu")
+    @PostMapping(value = {"","/"})
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String zpracujDopravu(@RequestBody PridejZmenDopravaDto pridejZmenDopravaDto) {
         Doprava doprava = new Doprava();
@@ -59,7 +32,8 @@ public class DopravaController {
         dopravaRepository.save(doprava);
         return "redirect:/doprava";
     }
-    @DeleteMapping("/admin/smaz/{id}")
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String smazDopravu(@PathVariable(required = false) Long id, Model model){
         dopravaRepository.deleteById(id);
         return "/";

@@ -42,7 +42,7 @@ public class NakoupenaPolozkaController {
         return cartService.getCart();
     }
 
-    @PostMapping("/order/")
+    @PostMapping(value = {"","/"})
     public String order(@RequestBody PridejZmenNakupDto pridejZmenNakupDto) {
         UserPrinciple principle;
         Optional<Uzivatel> user = null;

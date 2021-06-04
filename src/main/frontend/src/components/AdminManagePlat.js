@@ -3,6 +3,13 @@ import {Alert, Button, Container} from "react-bootstrap";
 import '../App.css';
 import BackendService from "../services/BackendService";
 import {useHistory} from "react-router-dom";
+import paginationFactory, {
+    PaginationListStandalone,
+    PaginationProvider,
+    PaginationTotalStandalone,
+    SizePerPageDropdownStandalone
+} from "react-bootstrap-table2-paginator";
+import BootstrapTable from "react-bootstrap-table-next";
 
 const AdminManagePlat =()=> {
     const [item, setItems] = useState([]);
@@ -29,6 +36,32 @@ const AdminManagePlat =()=> {
         history.push("/platba/AddPlatba")
     }
 
+    const actionsFormatter = (cell, row) =>
+        <Button type="submit" onClick={(event) => {
+            onDeleteItem(row)
+        }}>Odeber platbu</Button>
+
+    const paginationOption = {
+        custom: true,
+        totalSize: item.length
+    };
+
+    const columns = [{
+        dataField: 'popis',
+        text: 'jmeno platby',
+        sort: true
+    }, {
+        dataField: 'prevod',
+        text: 'prevod vuci CZK',
+        sort: true
+    }, {
+        dataField: 'akce',
+        text: 'prace s platbou',
+        isDummyField: true,
+        csvExport: false,
+        formatter: actionsFormatter
+    }];
+
         return (
             <div>
                 <Container fluid>
@@ -39,15 +72,34 @@ const AdminManagePlat =()=> {
                         <Alert variant="primary">
                             <h2>Zde je seznam vsech plateb</h2>
                         </Alert>
-                        {item && item.length > 0 && item.map(platba =>
-                            <div key={platba.id}>
-                                jmeno platby: {platba.popis},
-                                prevod vuci CZK: {platba.prevod}
-                                <Button type="submit" onClick={(event) => {
-                                    onDeleteItem(platba)
-                                }}>smaz platba</Button>
-                            </div>
-                        )}
+                        {item && <PaginationProvider
+                            pagination={paginationFactory(paginationOption)}
+                        >
+                            {
+                                ({
+                                     paginationProps,
+                                     paginationTableProps
+                                 }) => (
+                                    <div>
+                                        <SizePerPageDropdownStandalone
+                                            {...paginationProps}
+                                        />
+                                        <PaginationTotalStandalone
+                                            {...paginationProps}
+                                        />
+                                        <BootstrapTable
+                                            keyField="id"
+                                            data={item}
+                                            columns={columns}
+                                            {...paginationTableProps}
+                                        />
+                                        <PaginationListStandalone
+                                            {...paginationProps}
+                                        />
+                                    </div>
+                                )
+                            }
+                        </PaginationProvider>}
                         <Button type="submit" onClick={(event) => {
                             onAddItem()
                         }}>pridej novy platba</Button>

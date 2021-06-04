@@ -3,6 +3,7 @@ package upce.semprace.eshop.Controller;
 
 import org.hibernate.annotations.BatchSize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +43,7 @@ public class NakupController {
         return nakoupenaPolozkaRepository.findByNakupId(id);
     }
     @GetMapping("/nakup-zmen-stav/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void zmenStav(@PathVariable(required = false) Long id, Model model) {
         nakupRepository.zmenStav(true,id);
     }

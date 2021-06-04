@@ -3,6 +3,13 @@ import {Alert, Button, Container} from "react-bootstrap";
 import '../App.css';
 import BackendService from "../services/BackendService";
 import {useHistory} from "react-router-dom";
+import paginationFactory, {
+    PaginationListStandalone,
+    PaginationProvider,
+    PaginationTotalStandalone,
+    SizePerPageDropdownStandalone
+} from "react-bootstrap-table2-paginator";
+import BootstrapTable from "react-bootstrap-table-next";
 
 
 const AdminManageDop =()=> {
@@ -30,6 +37,32 @@ const AdminManageDop =()=> {
         history.push("/doprava/AddDoprava")
     }
 
+    const actionsFormatter = (cell, row) =>
+        <Button type="submit" onClick={(event) => {
+            onDeleteItem(row)
+        }}>Odeber dopravu</Button>
+
+    const paginationOption = {
+        custom: true,
+        totalSize: item.length
+    };
+
+    const columns = [{
+        dataField: 'popis',
+        text: 'jmeno platby',
+        sort: true
+    }, {
+        dataField: 'cena',
+        text: 'cena za dopravu',
+        sort: true
+    }, {
+        dataField: 'akce',
+        text: 'prace s dopravou',
+        isDummyField: true,
+        csvExport: false,
+        formatter: actionsFormatter
+    }];
+
         return (
             <div>
                 <Container fluid>
@@ -40,15 +73,34 @@ const AdminManageDop =()=> {
                         <Alert variant="primary">
                             <h2>Zde je seznam vsech doprav</h2>
                         </Alert>
-                        {item && item.length > 0 && item.map(dopravy =>
-                            <div key={dopravy.id}>
-                                jmeno dopravce: {dopravy.popis},
-                                cena za dopravu: {dopravy.cena}
-                                <Button type="submit" onClick={(event) => {
-                                    onDeleteItem(dopravy)
-                                }}>smaz dopravy</Button>
-                            </div>
-                        )}
+                        {item && <PaginationProvider
+                            pagination={paginationFactory(paginationOption)}
+                        >
+                            {
+                                ({
+                                     paginationProps,
+                                     paginationTableProps
+                                 }) => (
+                                    <div>
+                                        <SizePerPageDropdownStandalone
+                                            {...paginationProps}
+                                        />
+                                        <PaginationTotalStandalone
+                                            {...paginationProps}
+                                        />
+                                        <BootstrapTable
+                                            keyField="id"
+                                            data={item}
+                                            columns={columns}
+                                            {...paginationTableProps}
+                                        />
+                                        <PaginationListStandalone
+                                            {...paginationProps}
+                                        />
+                                    </div>
+                                )
+                            }
+                        </PaginationProvider>}
                         <Button name="submitButton" id="submitButton" type="submit" onClick={(event) => {
                             onAddItem()
                         }}>pridej novou dopravy</Button>

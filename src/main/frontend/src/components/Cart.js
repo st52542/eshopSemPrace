@@ -71,13 +71,16 @@ const Products = () => {
                     </Alert>
                     {item && item.length > 0 && item.map(polozky =>
                         <div key={polozky.id}>
-                            ({polozky.produkt.nazev})
-                            ({polozky.mnozstvi})
+                            nazev produktu: {polozky.produkt.nazev},{"\n"}
+                            mnozstvi: {polozky.mnozstvi}
                             <Button type="submit" onClick={(event) => {
                                 onDeleteItem(polozky)
                             }}>Odeber</Button>
                         </div>
                     )}
+                    <div>
+                        Vyber dopravu
+                    </div>
                     <select onChange={(event) => {
                         changeValuesDoprava(event)
                     }}>
@@ -89,6 +92,9 @@ const Products = () => {
                             </option>
                         ))}
                     </select>
+                    <div>
+                        Vyber platbu
+                    </div>
                     <select onChange={(event) => {
                         changeValuesPlatba(event)
                     }}>

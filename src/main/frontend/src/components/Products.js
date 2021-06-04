@@ -71,7 +71,6 @@ const Products = () => {
                     <Alert variant="primary">
                         <h2>Zde je seznam vsech produktu</h2>
                     </Alert>
-                    <h2>Filtrovani produktu dle ceny</h2>
                     {item && <PaginationProvider
                         pagination={paginationFactory(paginationOption)}
                     >

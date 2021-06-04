@@ -14,17 +14,6 @@ axios.interceptors.request.use(config => {
 const SERVER_ADDRESS = process.env.REACT_APP_BASE_URI
 
 class BackendService {
-    async getUserBoard() {
-        return await axios.get(SERVER_ADDRESS + "/api/test/user");
-    }
-
-    async getPmBoard() {
-        return await axios.get(SERVER_ADDRESS + "/api/test/pm");
-    }
-
-    async getAdminBoard() {
-        return await axios.get(SERVER_ADDRESS + "/api/test/admin");
-    }
 
     async getTOPProduktList() {
         return await axios.get(SERVER_ADDRESS + "/produkt");
@@ -35,15 +24,11 @@ class BackendService {
     }
 
     async postNewProdukt(produkt) {
-        return await axios.post(SERVER_ADDRESS + "/produkt/uloz-produkt", produkt);
+        return await axios.post(SERVER_ADDRESS + "/produkt", produkt);
     }
 
     async deleteProdukt(id) {
-        return await axios.delete(SERVER_ADDRESS + "/produkt/smaz/" + id);
-    }
-
-    async changeProdukt(id) {
-        return await axios.get(SERVER_ADDRESS + "/produkt/produkt-reg-form/" + id);
+        return await axios.delete(SERVER_ADDRESS + "/produkt/" + id);
     }
 
     async getDopravaList() {
@@ -51,12 +36,12 @@ class BackendService {
     }
 
     async deleteDoprava(id) {
-        return await axios.delete(SERVER_ADDRESS + "/doprava/admin/smaz/" + id);
+        return await axios.delete(SERVER_ADDRESS + "/doprava/" + id);
     }
 
     async postNewDoprava(doprava) {
         debugger
-        return await axios.post(SERVER_ADDRESS + "/doprava/admin/uloz-dopravu", doprava);
+        return await axios.post(SERVER_ADDRESS + "/doprava", doprava);
     }
 
     async getVyrobceList() {
@@ -64,11 +49,11 @@ class BackendService {
     }
 
     async deleteVyrobce(id) {
-        return await axios.delete(SERVER_ADDRESS + "/vyrobce/smaz/" + id);
+        return await axios.delete(SERVER_ADDRESS + "/vyrobce/" + id);
     }
 
     async postNewVyrobce(vyrobce) {
-        return await axios.post(SERVER_ADDRESS + "/vyrobce/uloz-vyrobce", vyrobce);
+        return await axios.post(SERVER_ADDRESS + "/vyrobce/", vyrobce);
     }
 
     async getPlatbaList() {
@@ -76,15 +61,11 @@ class BackendService {
     }
 
     async deletePlatba(id) {
-        return await axios.delete(SERVER_ADDRESS + "/platba/smaz/" + id);
+        return await axios.delete(SERVER_ADDRESS + "/platba/" + id);
     }
 
     async postNewPlatba(platba) {
-        return await axios.post(SERVER_ADDRESS + "/platba/uloz-platbu", platba);
-    }
-
-    async postCartItem(id) {
-        return await axios.post(SERVER_ADDRESS + "/platba/smaz/" + id);
+        return await axios.post(SERVER_ADDRESS + "/platba/", platba);
     }
 
     async getCartAddItem(id) {
@@ -100,7 +81,7 @@ class BackendService {
     }
 
     async postCartOrderItem(orderDetail) {
-        return await axios.post(SERVER_ADDRESS + "/cart/order/", orderDetail);
+        return await axios.post(SERVER_ADDRESS + "/cart/", orderDetail);
     }
 
     async getNakupy() {

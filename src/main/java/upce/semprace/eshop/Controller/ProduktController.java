@@ -1,13 +1,10 @@
 package upce.semprace.eshop.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import upce.semprace.eshop.dto.PridejZmenProduktDto;
-import upce.semprace.eshop.dto.StrankaProduktDto;
 import upce.semprace.eshop.entity.Produkt;
 import upce.semprace.eshop.repository.ProduktRepository;
 import upce.semprace.eshop.repository.VyrobceRepository;
@@ -28,38 +25,8 @@ public class ProduktController {
         return "chyba";
     }
 
-    @GetMapping("/produkt-detail/{id}")
-    public String zobrazDetailyProdukt(@PathVariable(required = false) Long id, Model model) {
-        model.addAttribute("produkt", produktRepository.findById(id).get());
-        return "produkt-detail";
-    }
-
-    @GetMapping("/produkt")
-    public String zobrazVsechnyProdukt(Model model) {
-        model.addAttribute("produktList", produktRepository.findAll());
-        return "produkt-list";
-    }
-
-    @GetMapping(value = {"/produkt-reg-form", "/produkt-reg-form/{id}"})
-    public String zobrazProdukt(@PathVariable(required = false) Long id, Model model) {
-        if (id != null) {
-            Produkt byId = produktRepository.findById(id).orElse(new Produkt());
-            PridejZmenProduktDto dto = new PridejZmenProduktDto();
-            dto.setId(byId.getId());
-            dto.setNazev(byId.getNazev());
-            dto.setPopis(byId.getPopis());
-            dto.setCena(byId.getCena());
-            dto.setSlevaProcenta(byId.getSlevaProcenta());
-            dto.setvNabidce(byId.isvNabidce());
-            dto.setCestaKObrazku(byId.getCestaKObrazku());
-            model.addAttribute("produkt", byId);
-        } else {
-            model.addAttribute("produkt", new PridejZmenProduktDto());
-        }
-        return "produkt-reg-form";
-    }
-
-    @PostMapping("/uloz-produkt")
+    @PostMapping(value = {"", "/"})
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String zpracujProdukt(@RequestBody PridejZmenProduktDto pridejZmenProduktDto) {
         Produkt produkt = new Produkt();
         produkt.setId(pridejZmenProduktDto.getId());
@@ -74,7 +41,8 @@ public class ProduktController {
         return "redirect:/produkt";
     }
 
-    @DeleteMapping("/smaz/{id}")
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String smazProdukt(@PathVariable(required = false) Long id, Model model) {
         produktRepository.deleteById(id);
         return "/";
