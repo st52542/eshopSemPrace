@@ -16,7 +16,6 @@ public class Doprava {
     private Integer cena;
 
     @OneToMany(mappedBy = "id")
-    @JsonIgnore
     private Set<Nakup> nakup;
 
     public void setId(Long id) {

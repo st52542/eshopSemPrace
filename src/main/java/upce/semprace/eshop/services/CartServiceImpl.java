@@ -7,13 +7,15 @@ import upce.semprace.eshop.entity.Nakup;
 import upce.semprace.eshop.entity.Produkt;
 import upce.semprace.eshop.repository.*;
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class CartServiceImpl implements CartService {
 
 
-    private Map<Produkt, Integer> kosik;
+    private Map<Integer, Long> kosik;
     @Autowired
     private final ProduktRepository produktRepository;
     @Autowired
@@ -38,55 +40,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void add(Long id) {
-        Produkt product = produktRepository.findById(id).orElseThrow(NoSuchElementException::new);
-        boolean nalezeno = false;
-        for (Map.Entry<Produkt, Integer> entry : kosik.entrySet()) {
-            if (Objects.equals(id, entry.getKey().getId())) {
-                kosik.replace(entry.getKey(), entry.getValue() + 1);
-                nalezeno = true;
-            }
-        }
-        if (!nalezeno) {
-            kosik.put(product, 1);
-        }
-    }
-
-    @Override
-    public void delete(Long id) {
-        for (Map.Entry<Produkt, Integer> entry : kosik.entrySet()) {
-            if (Objects.equals(id, entry.getKey().getId())) {
-                if (entry.getValue() == 1) {
-                    kosik.remove(entry.getKey());
-                } else {
-                    kosik.replace(entry.getKey(), entry.getValue() - 1);
-                }
-
-            }
-        }
-    }
-
-    @Override
-    public List<KosikPair> getCart() {
-        final List<KosikPair> kosik = new ArrayList<>();
-        for (Produkt prod : this.kosik.keySet()){
-            kosik.add(new KosikPair(prod, this.kosik.get(prod)));
-        }
-        return kosik;
-    }
-
-    @Override
-    public List<KosikPair> getCartMore() {
-        final List<KosikPair> kosik = new ArrayList<>();
-        for (Produkt prod : this.kosik.keySet()){
-            kosik.add(new KosikPair(prod, this.kosik.get(prod)));
-        }
-        return kosik;
-    }
-
-
-    @Override
-    public void order(Long idUzivatel, Long idDoprava, Long idPlatba) {
+    public void order(Long idUzivatel, Long idDoprava, Long idPlatba, List<Produkt> polozky) {
         Date datum = new Date();
         Nakup nakup = new Nakup();
         nakup.setDoprava(dopravaRepository.findById(idDoprava).get());
@@ -96,11 +50,18 @@ public class CartServiceImpl implements CartService {
         nakup.setObjednavka(-((int) datum.getTime()));
         nakup.setStav(Boolean.FALSE);
         nakupRepository.save(nakup);
-
-        for (Map.Entry<Produkt, Integer> entry : kosik.entrySet()) {
+        List<Integer> intList = new ArrayList<Integer>(polozky.size());
+        for (Produkt i : polozky)
+        {
+            intList.add(i.getId().intValue());
+        }
+        Map<Integer, Long> counted = intList.stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        kosik=counted;
+        for (Map.Entry<Integer, Long> entry : kosik.entrySet()) {
             NakoupenaPolozka nakoupenaPolozka = new NakoupenaPolozka();
-            nakoupenaPolozka.setProdukt(entry.getKey());
-            nakoupenaPolozka.setMnozstvi(entry.getValue());
+            nakoupenaPolozka.setProdukt(produktRepository.findById(entry.getKey().longValue()).get());
+            nakoupenaPolozka.setMnozstvi(entry.getValue().intValue());
             nakoupenaPolozkaRepository.save(nakoupenaPolozka);
             nakoupenaPolozka.setNakup(nakup);
             nakupRepository.save(nakup);
@@ -108,4 +69,5 @@ public class CartServiceImpl implements CartService {
         kosik.clear();
 
     }
+
 }

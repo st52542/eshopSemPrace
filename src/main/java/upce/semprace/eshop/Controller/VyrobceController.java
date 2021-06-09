@@ -5,10 +5,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import upce.semprace.eshop.dto.PridejZmenVyrobceDto;
+import upce.semprace.eshop.entity.Produkt;
 import upce.semprace.eshop.entity.Vyrobce;
 import upce.semprace.eshop.repository.VyrobceRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/vyrobce")
@@ -24,19 +26,20 @@ public class VyrobceController {
 
     @PostMapping(value = {"","/"})
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String zpracujVyrobce(@RequestBody PridejZmenVyrobceDto pridejZmenVyrobceDto) {
+    public Optional<Vyrobce> zpracujVyrobce(@RequestBody PridejZmenVyrobceDto pridejZmenVyrobceDto) {
         Vyrobce vyrobce = new Vyrobce();
         vyrobce.setId(pridejZmenVyrobceDto.getId());
         vyrobce.setNazev(pridejZmenVyrobceDto.getNazev());
         vyrobce.setAdresa(pridejZmenVyrobceDto.getAdresa());
         vyrobceRepository.save(vyrobce);
-        return "redirect:/vyrobce";
+        return vyrobceRepository.findById(vyrobce.getId());
     }
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String smazDopravu(@PathVariable(required = false) Long id, Model model){
+        Vyrobce odeber = vyrobceRepository.findById(id).get();
         vyrobceRepository.deleteById(id);
-        return "/";
+        return odeber.getNazev();
     }
 
     @GetMapping(value = {"","/"})

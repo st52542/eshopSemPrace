@@ -5,6 +5,7 @@ import React, {useState, useEffect} from 'react';
 
 const Home = () => {
     const [item, setItems] = useState([]);
+    const [cart,setCart] = useState([]);
 
     useEffect(() => {
         BackendService.getTOPProduktList()
@@ -14,12 +15,16 @@ const Home = () => {
             }, (error) => {
                 console.log(error.toString())
             })
+        if (JSON.parse(localStorage.getItem('kosik'))!=null) {
+            setCart(JSON.parse(localStorage.getItem('kosik')))
+        }
     }, []);
 
-    const onAddToCart = (id) => {
-        BackendService.getCartAddItem(id)
+    const onAddToCart = (prod) => {
+        const kos = [...cart,prod]
+        setCart(kos)
+        localStorage.setItem('kosik', JSON.stringify(kos));
     }
-
 
     return (
         <div>
@@ -36,7 +41,7 @@ const Home = () => {
                         <div key={produkt.id}>
                             Nazev produktu: {produkt.nazev}, cena: {produkt.cena}, sleva: {produkt.slevaProcenta}
                             <Button type="submit" onClick={(event) => {
-                                onAddToCart(produkt.id)
+                                onAddToCart(produkt)
                             }}>Pridej do kosiku</Button>
                         </div>
                     )}

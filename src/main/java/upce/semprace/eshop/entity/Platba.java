@@ -14,7 +14,7 @@ public class Platba {
     private Double prevod;
 
     @OneToMany(mappedBy = "id")
-    @JsonIgnore
+
     private Set<Nakup> nakup;
 
     public void setId(Long id) {

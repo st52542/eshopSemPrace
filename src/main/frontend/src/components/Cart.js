@@ -12,45 +12,53 @@ const Products = () => {
 
     const [orderSpec] = useState({
         doprava: 0,
-        platba: 0
+        platba: 0,
+        polozky: null
     });
 
     useEffect(() => {
         BackendService.getDopravaList()
             .then((resp) => {
                 setItemDoprava(resp.data)
-                orderSpec.doprava =resp.data[0].id
+                orderSpec.doprava = resp.data[0].id
             }, (error) => {
                 console.log(error.toString())
             })
         BackendService.getPlatbaList()
             .then((resp) => {
                 setItemPlatba(resp.data)
-                orderSpec.platba =resp.data[0].id
+                orderSpec.platba = resp.data[0].id
             }, (error) => {
                 console.log(error.toString())
             })
-        BackendService.getCartItems()
-            .then((resp) => {
-                setItems(resp.data)
-            }, (error) => {
-                console.log(error.toString())
-            })
+        if (JSON.parse(localStorage.getItem('kosik')) != null) {
+            setItems(JSON.parse(localStorage.getItem('kosik')))
+        }
     }, [orderSpec]);
 
     const onAccept = () => {
+        orderSpec.polozky = item
         BackendService.postCartOrderItem(orderSpec)
             .then((resp) => {
+                localStorage.removeItem('kosik');
+                localStorage.clear();
                 history.push("/")
             }, (error) => {
                 console.log(error.toString())
             })
     }
 
+    const removeFromCart = (itemToDelete) => {
+        let newItem = [...item];
+        const index = newItem.findIndex((item) => item === itemToDelete);
+        newItem.splice(index, 1);
+        setItems(newItem)
+    };
+
     const onDeleteItem = (itemToDelete) => {
-        BackendService.getCartDeleteItem(itemToDelete.produkt.id).then((resp) => {
-            window.location.reload();
-        })
+        removeFromCart(itemToDelete)
+        orderSpec.polozky = item
+        localStorage.setItem('kosik', JSON.stringify(item));
     }
     const changeValuesDoprava = (event) => {
         orderSpec.doprava = event.target.value
@@ -71,10 +79,9 @@ const Products = () => {
                     </Alert>
                     {item && item.length > 0 && item.map(polozky =>
                         <div key={polozky.id}>
-                            nazev produktu: {polozky.produkt.nazev},{"\n"}
-                            mnozstvi: {polozky.mnozstvi}
+                            nazev produktu: {polozky.nazev},{"\n"}
                             <Button type="submit" onClick={(event) => {
-                                onDeleteItem(polozky)
+                                onDeleteItem(polozky.id)
                             }}>Odeber</Button>
                         </div>
                     )}

@@ -1,14 +1,11 @@
 package upce.semprace.eshop.services;
+
+import upce.semprace.eshop.entity.Produkt;
+
 import java.util.List;
 
 public interface CartService {
-    void add(Long id);
 
-    void delete(Long id);
+    void order(Long idUzivatel, Long idDoprava, Long idPlatba, List<Produkt> polozky);
 
-    void order(Long idUzivatel, Long idDoprava, Long idPlatba);
-
-    List<KosikPair> getCart();
-
-    List<KosikPair> getCartMore();
 }

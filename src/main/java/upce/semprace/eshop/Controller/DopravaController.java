@@ -9,6 +9,7 @@ import upce.semprace.eshop.entity.Doprava;
 import upce.semprace.eshop.repository.DopravaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/doprava")
@@ -24,19 +25,20 @@ public class DopravaController {
 
     @PostMapping(value = {"","/"})
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String zpracujDopravu(@RequestBody PridejZmenDopravaDto pridejZmenDopravaDto) {
+    public Optional<Doprava> zpracujDopravu(@RequestBody PridejZmenDopravaDto pridejZmenDopravaDto) {
         Doprava doprava = new Doprava();
         doprava.setId(pridejZmenDopravaDto.getId());
         doprava.setCena(pridejZmenDopravaDto.getCena());
         doprava.setPopis(pridejZmenDopravaDto.getPopis());
         dopravaRepository.save(doprava);
-        return "redirect:/doprava";
+        return dopravaRepository.findById(doprava.getId());
     }
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String smazDopravu(@PathVariable(required = false) Long id, Model model){
+        Doprava odeber = dopravaRepository.findById(id).get();
         dopravaRepository.deleteById(id);
-        return "/";
+        return odeber.getPopis();
     }
 
     @GetMapping(value = {"","/"})

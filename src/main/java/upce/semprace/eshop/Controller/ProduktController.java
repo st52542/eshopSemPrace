@@ -5,10 +5,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import upce.semprace.eshop.dto.PridejZmenProduktDto;
+import upce.semprace.eshop.entity.Platba;
 import upce.semprace.eshop.entity.Produkt;
 import upce.semprace.eshop.repository.ProduktRepository;
 import upce.semprace.eshop.repository.VyrobceRepository;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/produkt")
@@ -27,7 +29,7 @@ public class ProduktController {
 
     @PostMapping(value = {"", "/"})
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String zpracujProdukt(@RequestBody PridejZmenProduktDto pridejZmenProduktDto) {
+    public Optional<Produkt> zpracujProdukt(@RequestBody PridejZmenProduktDto pridejZmenProduktDto) {
         Produkt produkt = new Produkt();
         produkt.setId(pridejZmenProduktDto.getId());
         produkt.setNazev(pridejZmenProduktDto.getNazev());
@@ -38,19 +40,26 @@ public class ProduktController {
         produkt.setCestaKObrazku(pridejZmenProduktDto.getCestaKObrazku());
         produkt.setVyrobce(vyrobceRepository.findById(pridejZmenProduktDto.getVyrobce()).get());
         produktRepository.save(produkt);
-        return "redirect:/produkt";
+        return produktRepository.findById(produkt.getId());
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String smazProdukt(@PathVariable(required = false) Long id, Model model) {
+        Produkt odeber = produktRepository.findById(id).get();
         produktRepository.deleteById(id);
-        return "/";
+        return odeber.getNazev();
     }
 
     @GetMapping(value = {"/all-products"})
     public List<Produkt> getProducts() {
         return produktRepository.findAll();
+    }
+
+
+    @GetMapping(value = {"/{id}"})
+    public Produkt getProductByID(@PathVariable(required = false) Long id, Model model) {
+        return produktRepository.findById(id).get();
     }
 
     @GetMapping(value = {"", "/"})

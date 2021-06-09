@@ -22,6 +22,9 @@ class BackendService {
     async getProduktList() {
         return await axios.get(SERVER_ADDRESS + "/produkt/all-products");
     }
+    async getProdukt(id) {
+        return await axios.get(SERVER_ADDRESS + "/produkt/"+id);
+    }
 
     async postNewProdukt(produkt) {
         return await axios.post(SERVER_ADDRESS + "/produkt", produkt);
