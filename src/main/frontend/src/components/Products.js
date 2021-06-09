@@ -11,7 +11,7 @@ import filterFactory, {numberFilter} from 'react-bootstrap-table2-filter';
 
 const Products = () => {
     const [item, setItems] = useState([]);
-    const [Cart,setCart] = useState([]);
+    const [Cart, setCart] = useState([]);
 
     useEffect(() => {
         BackendService.getProduktList()
@@ -21,22 +21,19 @@ const Products = () => {
             }, (error) => {
                 console.log(error.toString())
             })
-        if (JSON.parse(localStorage.getItem('kosik'))!=null) {
+        if (JSON.parse(localStorage.getItem('kosik')) != null) {
             setCart(JSON.parse(localStorage.getItem('kosik')))
         }
     }, []);
 
     const OnAddToCart = async (id) => {
-        const Blel = [...Cart, id]
-/*        useEffect(() => {
-            setCart(Blel)
-            localStorage.setItem('kosik', JSON.stringify(Blel));
-        }, [Cart]);*/
-/*        do {
-            await setCart(blel)
-            await localStorage.setItem('kosik', JSON.stringify(blel));
-        }while (blel===cart)*/
-
+        const blel = [...Cart, id]
+        /*        useEffect(() => {
+                    setCart(Blel)
+                    localStorage.setItem('kosik', JSON.stringify(Blel));
+                }, [Cart]);*/
+        await setCart(blel)
+        await localStorage.setItem('kosik', JSON.stringify(blel));
     }
 
     const actionsFormatter = (cell, row) =>
