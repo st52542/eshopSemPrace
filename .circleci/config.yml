@@ -32,8 +32,8 @@ jobs:
             - v1-dependencies-{{ checksum "pom.xml" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-
-      - run: ./mvnw package
+      - run: apt-get install maven
+      - run: mvn package
 
       - save_cache:
           paths:
