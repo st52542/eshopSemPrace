@@ -3,7 +3,7 @@
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
 orbs:
-  gradle: circleci/gradle@6.6.1
+  maven: circleci/maven@3.8.1
 version: 2
 
 
