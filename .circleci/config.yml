@@ -12,6 +12,9 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:8-jdk-browsers
+      steps:
+        - setup_remote_docker:
+          version: 19.03.13
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
