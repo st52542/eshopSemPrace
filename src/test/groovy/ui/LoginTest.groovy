@@ -84,7 +84,6 @@ class LoginTest {
         driver.findElement(By.name("username")).sendKeys("rootroot");
         driver.findElement(By.name("password")).sendKeys("rootroot");
         driver.findElement(By.name("submitButton")).click();
-        println "kk"
         WebDriverWait wt = new WebDriverWait(driver, 7);
         wt.until(ExpectedConditions.urlContains("#/home"));
         assertTrue(localStorage.keySet().contains("user"));
