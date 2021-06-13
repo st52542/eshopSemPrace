@@ -2,10 +2,16 @@
 #
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
-orbs:
-  maven: circleci/maven@3.8.1
+
 version: 2
 
+orbs:
+  maven: circleci/maven@0.0.12
+
+workflows:
+  maven_test:
+    jobs:
+      - maven/test
 
 jobs:
   build:
@@ -28,8 +34,7 @@ jobs:
 
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 17.09.0-ce
+
       # Download and cache dependencies
       - restore_cache:
           keys:
