@@ -2,6 +2,8 @@
 #
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
+orbs:
+  gradle: circleci/gradle@6.6.1
 version: 2
 
 
@@ -26,19 +28,21 @@ jobs:
 
     steps:
       - checkout
+      - setup_remote_docker:
+          version: 17.09.0-ce
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
+            - v1-dependencies-{{ checksum "build.gradle" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-      - run: apt-get install maven
-      - run: mvn package
+
+      - run: gradle dependencies
 
       - save_cache:
           paths:
             - ~/.gradle
-          key: v1-dependencies-{{ checksum "pom.xml" }}
+          key: v1-dependencies-{{ checksum "build.gradle" }}
 
       # run tests!
       - run: mvn test
