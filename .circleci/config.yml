@@ -3,8 +3,9 @@
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
 version: 2
+
 orbs:
-  gradle: circleci/gradle@6.6.1
+  maven: circleci/maven@0.0.12
 
 jobs:
   build:
