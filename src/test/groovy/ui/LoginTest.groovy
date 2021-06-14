@@ -1,4 +1,4 @@
-package upce.semprace.eshop.controllerTests
+package ui
 
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeAll
