@@ -34,8 +34,9 @@ jobs:
       # Download and cache dependencies
 
       # run tests!
-      - run: mvn test
-
+      - run:
+          name: Test
+          command: mvn test
       - run:
           name: Save test results
           command: |
