@@ -1,13 +1,10 @@
-package ui
+package upce.semprace.eshop.controllerTests
 
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.security.crypto.password.PasswordEncoder
-import upce.semprace.eshop.entity.Role
-import upce.semprace.eshop.entity.RoleName
 import upce.semprace.eshop.entity.Uzivatel
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
